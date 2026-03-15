@@ -2,7 +2,7 @@
 
 namespace App\Livewire;
 
-use Livewire\Attributes\On;
+use App\Services\SearchService;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -13,10 +13,20 @@ class SearchBar extends Component
 
     public array $results = [];
 
-    #[On('search-updated')]
-    public function updatedQuery(): void
+    public function mount(): void
     {
-        $this->dispatch('search-updated', query: $this->query);
+        $this->results = app(SearchService::class)->suggest('62', limit: 3);
+    }
+
+    public function updateResults(string $value): void
+    {
+        if (trim($value) === '') {
+            $this->results = [];
+
+            return;
+        }
+
+        $this->results = app(SearchService::class)->suggest($value, limit: 8);
     }
 
     public function render()
