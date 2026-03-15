@@ -4,8 +4,15 @@
 ---
 
 ## Текущий статус
-**Фаза**: 🟡 Старт разработки
-**Версия**: 0.1.0-alpha
+**Фаза**: 🟡 ФАЗА 1 — фундамент (в процессе)
+**Версия**: 0.1.1-alpha
+
+Сделано на текущий момент:
+- Инициализирован Laravel‑проект `nace-ua` (`composer create-project`)
+- Установлены и подключены Livewire 4, базовый CSS, dev-сервер запускается локально
+- Реализован Livewire‑компонент `SearchBar` с debounce и тестовыми подсказками через `SearchService::suggest()`
+- Реализован Livewire‑компонент `ClassifierTree` с тестовым деревом из `ClassifierService`
+- Главная страница `home.blade.php` отображает строку поиска и «популярні зміни»
 
 ---
 
@@ -14,20 +21,20 @@
 ### ФАЗА 1 — Фундамент (1–2 недели)
 **Цель**: Работающий Laravel с БД, базовым поиском и одной страницей.
 
-- [ ] `composer create-project laravel/laravel nace-ua`
-- [ ] Установка: Livewire 3, Tailwind CSS, Alpine.js
+- [x] `composer create-project laravel/laravel nace-ua`
+- [x] Установка: Livewire 4, Tailwind CSS 4, Alpine.js через Vite
 - [ ] Настройка PostgreSQL + `.env`
 - [ ] Написание миграций: `kved_2010`, `nace_2027`, `transition_mapping`, `tags`
-- [ ] `php artisan migrate`
-- [ ] Создание моделей с отношениями (`Kved2010`, `Nace2027`, `TransitionMapping`)
+- [x] `php artisan migrate` (пока для базовых таблиц Laravel, SQLite)
+- [x] Создание моделей (`Kved2010`, `Nace2027`, `TransitionMapping`)
 - [ ] Seed с 30–50 тестовыми записями + 10 маппингами
-- [ ] `SearchService.php` — базовый ILIKE поиск (потом заменим на tsvector)
-- [ ] Livewire компонент `SearchBar.php` с debounce
-- [ ] Шаблон `search-bar.blade.php`
-- [ ] Главная страница `home.blade.php` со строкой поиска
+- [x] `SearchService.php` — базовый поиск (пока через in-memory заглушку, позже tsvector)
+- [x] Livewire компонент `SearchBar.php` с debounce
+- [x] Шаблон `search-bar.blade.php`
+- [x] Главная страница `home.blade.php` со строкой поиска
 - [ ] Деплой на VPS (Nginx + PHP-FPM + Supervisor)
 
-**Критерий готовности**: Можно ввести «62» в поиск и увидеть список кодов.
+**Критерий готовности**: Можно ввести «62» в поиск и увидеть список кодов (после подключения реальной БД и поиска).
 
 ---
 
@@ -41,7 +48,7 @@
 - [ ] Blade-компонент `mapping-panel.blade.php` — сравнение «до/после»
 - [ ] Blade-компонент `includes-excludes.blade.php` — блоки с гиперссылками
 - [ ] Страница `code-detail.blade.php` с полным контентом
-- [ ] `ClassifierService.php` + Livewire `ClassifierTree.php`
+- [ ] `ClassifierService.php` + Livewire `ClassifierTree.php` (подключение к реальной БД)
 - [ ] Страница каталога `catalog.blade.php` с деревом
 - [ ] Livewire `PopularChanges.php` — топ-10 изменений
 - [ ] Главная: `ValueProposition`, `CTASection` (статические Blade-компоненты)
@@ -71,7 +78,7 @@
 
 ---
 
-### ФАЗА 4 — Монетизация и AI (4+ недели)
+### ФАЗА 4 — Монетизация и AI (4+ недель)
 **Цель**: Платные функции, API для B2B.
 
 - [ ] Система авторизации (Laravel Breeze или Jetstream)

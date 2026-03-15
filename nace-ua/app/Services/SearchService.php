@@ -6,7 +6,7 @@ class SearchService
 {
     public function search(string $query): array
     {
-        return [];
+        return $this->suggest($query, limit: 20);
     }
 
     /**

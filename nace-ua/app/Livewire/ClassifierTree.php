@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Services\ClassifierService;
 use Livewire\Component;
 
 class ClassifierTree extends Component
@@ -9,6 +10,13 @@ class ClassifierTree extends Component
     public string $standard = 'kved';
 
     public array $expanded = [];
+
+    public array $nodes = [];
+
+    public function mount(): void
+    {
+        $this->nodes = app(ClassifierService::class)->getRootNodes($this->standard);
+    }
 
     public function toggle(string $id): void
     {
