@@ -4,15 +4,18 @@
 ---
 
 ## Текущий статус
-**Фаза**: 🟡 ФАЗА 1 — фундамент (в процессе)
-**Версия**: 0.1.1-alpha
+**Фаза**: 🟢 ФАЗА 1 — фундамент (деплой на сервер завершён)
+**Версия**: 0.1.2-alpha
+**Сервер**: http://204.168.131.195 (Ubuntu 22.04 LTS, Hetzner VDS, aarch64)
 
 Сделано на текущий момент:
 - Инициализирован Laravel‑проект `nace-ua` (`composer create-project`)
-- Установлены и подключены Livewire 4, базовый CSS, dev-сервер запускается локально
+- Установлены и подключены Livewire 4, Tailwind CSS 4, Alpine.js через Vite
 - Реализован Livewire‑компонент `SearchBar` с debounce и тестовыми подсказками через `SearchService::suggest()`
 - Реализован Livewire‑компонент `ClassifierTree` с тестовым деревом из `ClassifierService`
 - Главная страница `home.blade.php` отображает строку поиска и «популярні зміни»
+- **Задеплоено на VDS**: PHP 8.3, Nginx, PostgreSQL 14, Redis, Supervisor, Node.js 20
+- Миграции выполнены, frontend собран (`npm run build`), Laravel-кеши оптимизированы
 
 ---
 
@@ -23,7 +26,7 @@
 
 - [x] `composer create-project laravel/laravel nace-ua`
 - [x] Установка: Livewire 4, Tailwind CSS 4, Alpine.js через Vite
-- [ ] Настройка PostgreSQL + `.env`
+- [x] Настройка PostgreSQL + `.env` (на сервере: БД `nace_ua`, user `nace_user`)
 - [ ] Написание миграций: `kved_2010`, `nace_2027`, `transition_mapping`, `tags`
 - [x] `php artisan migrate` (пока для базовых таблиц Laravel, SQLite)
 - [x] Создание моделей (`Kved2010`, `Nace2027`, `TransitionMapping`)
@@ -32,7 +35,7 @@
 - [x] Livewire компонент `SearchBar.php` с debounce
 - [x] Шаблон `search-bar.blade.php`
 - [x] Главная страница `home.blade.php` со строкой поиска
-- [ ] Деплой на VPS (Nginx + PHP-FPM + Supervisor)
+- [x] Деплой на VPS (Nginx + PHP-FPM + Supervisor) — http://204.168.131.195
 
 **Критерий готовности**: Можно ввести «62» в поиск и увидеть список кодов (после подключения реальной БД и поиска).
 
