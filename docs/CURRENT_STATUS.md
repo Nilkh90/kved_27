@@ -69,11 +69,11 @@
 ### ФАЗА 3 — Админ-панель и данные (1–2 недели)
 **Цель**: Менеджер может обновлять БД без разработчика.
 
-- [ ] Middleware `auth.admin` (простой basic auth через `.env`)
+- [x] Middleware `auth.admin` (простой basic auth через `.env`)
 - [ ] Дашборд `/admin` — статистика записей в БД
-- [ ] Livewire `ImportForm.php` — drag-and-drop CSV/Excel
-- [ ] `ImportService.php` — парсинг, валидация, upsert
-- [ ] `ProcessCsvImport` job — для файлов > 1000 строк
+- [x] Livewire `ImportForm.php` — drag-and-drop CSV/Excel
+- [x] `ImportService.php` — парсинг, валидация, upsert
+- [x] `ProcessCsvImport` job — для файлов > 1000 строк
 - [ ] Livewire `DataTable.php` — просмотр и редактирование записей
 - [ ] После импорта: автоматически `ResponseCache::clear()` + пересчёт `search_vector`
 - [ ] Наполнение БД полным датасетом КВЭД-2010
