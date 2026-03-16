@@ -31,7 +31,7 @@
 - [x] `php artisan migrate` (пока для базовых таблиц Laravel, SQLite)
 - [x] Создание моделей (`Kved2010`, `Nace2027`, `TransitionMapping`)
 - [x] Seed с тестовыми записями + 10+ маппингами (локально + на сервере)
-- [x] `SearchService.php` — базовый поиск (пока через in-memory заглушку, позже tsvector)
+- [x] `SearchService.php` — базовый поиск по БД (KVED/NACE/tags, без tsvector)
 - [x] Livewire компонент `SearchBar.php` с debounce
 - [x] Шаблон `search-bar.blade.php`
 - [x] Главная страница `home.blade.php` со строкой поиска
