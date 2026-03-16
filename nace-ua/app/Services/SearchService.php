@@ -81,7 +81,7 @@ class SearchService
      */
     private function searchPgsql(string $query, int $limit): array
     {
-        $tsQuery = "plainto_tsquery('ukrainian', ?)";
+        $tsQuery = "plainto_tsquery('simple', ?)";
 
         $sql = "
             SELECT code, title, standard FROM (
