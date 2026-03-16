@@ -5,7 +5,7 @@
 @section('content')
     <x-seo
         :title="$code->code . ' — ' . $code->title . ' | NACE 2.1-UA'"
-        :description="Str::limit($code->description ?? '', 140)"
+        :description="\\Illuminate\\Support\\Str::limit($code->description ?? '', 140)"
         :canonical="route('code.show', [$standard, $code->code])"
     />
 
