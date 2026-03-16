@@ -14,7 +14,7 @@ class AdminController extends Controller
 
     public function import(): View
     {
-        return view('livewire.admin.import-form');
+        return view('admin.import');
     }
 }
 

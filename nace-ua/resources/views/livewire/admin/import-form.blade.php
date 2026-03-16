@@ -47,7 +47,7 @@
                         </label>
                     </div>
                     <p class="text-xs text-[--color-text-muted]">
-                        @if($file)
+                        @if($file && is_object($file) && method_exists($file, 'getClientOriginalName'))
                             Обрано: {{ $file->getClientOriginalName() }}
                         @else
                             Натисніть сюди
