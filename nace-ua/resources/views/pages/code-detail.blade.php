@@ -1,12 +1,11 @@
 @extends('layouts.app')
 
-@section('content')
-<x-seo
-    :title="$code->code . ' — ' . $code->title . ' | kved2027'"
-    :description="\Illuminate\Support\Str::limit($code->description ?? 'Перегляньте відповідність коду ' . $code->code . ' між класифікаторами КВЕД-2010 та NACE 2.1-UA.', 155)"
-    :canonical="route('code.show', [$standard, $code->code])"
-/>
+@php
+    $title = $code->code . ' — ' . $code->title . ' | kved2027';
+    $description = \Illuminate\Support\Str::limit($code->description ?? 'Перегляньте відповідність коду ' . $code->code . ' між класифікаторами КВЕД-2010 та NACE 2.1-UA.', 155);
+@endphp
 
+@section('content')
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     {{-- Breadcrumbs --}}

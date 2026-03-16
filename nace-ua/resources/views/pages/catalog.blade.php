@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('content')
-<x-seo
-    :title="'Каталог класифікатора ' . strtoupper($standard) . ' | kved2027'"
-    description="Повний каталог класифікаторів КВЕД-2010 та NACE 2.1-UA з можливістю пошуку та перегляду ієрархічного дерева видів діяльності."
-/>
+@php
+    $title = 'Каталог класифікатора ' . strtoupper($standard) . ' | kved2027';
+    $description = 'Повний каталог класифікаторів КВЕД-2010 та NACE 2.1-UA з можливістю пошуку та перегляду ієрархічного дерева видів діяльності.';
+@endphp
 
+@section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     {{-- Page Header --}}
     <div class="mb-8">

@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('content')
-<x-seo
-    title="kved2027 — Переведіть свій КВЕД-2010 на NACE 2.1-UA безкоштовно"
-    description="Сервіс для швидкого та безпечного переходу українського бізнесу з класифікатора КВЕД-2010 на NACE 2.1-UA. Знайдіть свій код та дізнайтесь що потрібно зробити."
-/>
+@php
+    $title = 'kved2027 — Переведіть свій КВЕД-2010 на NACE 2.1-UA безкоштовно';
+    $description = 'Сервіс для швидкого та безпечного переходу українського бізнесу з класифікатора КВЕД-2010 на NACE 2.1-UA. Знайдіть свій код та дізнайтесь що потрібно зробити.';
+@endphp
 
+@section('content')
 {{-- HERO SECTION --}}
 <section class="relative overflow-hidden py-20 sm:py-28" style="background: linear-gradient(180deg, #EEF4FF 0%, #FFFFFF 100%)">
     {{-- Background accent --}}
