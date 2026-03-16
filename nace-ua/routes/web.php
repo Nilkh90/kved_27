@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
 Route::get('/catalog/{standard}', [CatalogController::class, 'byStandard']); // kved|nace
-Route::get('/code/{standard}/{code}', [CodeController::class, 'show'])->name('code.show');
+Route::get('/code/{standard}/{code}', [CodeController::class, 'show'])
+    ->middleware('cacheResponse:1440')
+    ->name('code.show');
 Route::get('/info', [InfoController::class, 'index'])->name('info');
 Route::get('/info/{slug}', [InfoController::class, 'article'])->name('info.article');
 
