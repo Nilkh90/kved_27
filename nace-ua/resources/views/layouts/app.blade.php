@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>@yield('title', 'NACE 2.1-UA')</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
 <body class="bg-surface text-text">
