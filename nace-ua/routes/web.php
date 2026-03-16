@@ -21,8 +21,8 @@ Route::get('/info/{slug}', [InfoController::class, 'article'])->name('info.artic
 // Sitemap
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
-// Админ (позже будет auth.admin middleware)
-Route::middleware('web')->prefix('admin')->group(function () {
+// Админ (basic auth middleware)
+Route::middleware(['web', 'auth.admin'])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard']);
     Route::get('/import', [AdminController::class, 'import']);
 });

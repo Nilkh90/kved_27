@@ -15,8 +15,21 @@ class ProcessCsvImport implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function handle(): void
+    public function __construct(
+        public string $filePath,
+        public string $type,
+        public string $mode = 'upsert'
+    ) {}
+
+    public function handle(\App\Services\ImportService $service): void
     {
+        $csv = \League\Csv\Reader::createFromPath($this->filePath, 'r');
+        $csv->setHeaderOffset(0);
+        $records = iterator_to_array($csv->getRecords());
+
+        $service->processRows($records, $this->type, $this->mode);
+
+        \Spatie\ResponseCache\Facades\ResponseCache::clear();
     }
 }
 
