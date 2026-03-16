@@ -16,6 +16,7 @@
 - Главная страница `home.blade.php` отображает строку поиска и «популярні зміни»
 - **Задеплоено на VDS**: PHP 8.3, Nginx, PostgreSQL 14, Redis, Supervisor, Node.js 20
 - Миграции выполнены, frontend собран (`npm run build`), Laravel-кеши оптимизированы
+- Прогнан end-to-end smoke: `/` → пошук → перехід на `/code/...` → `/catalog` (успішно, HTTP 200)
 
 ---
 
