@@ -27,7 +27,7 @@ class SearchService
 
         /** @var \Illuminate\Support\Collection<int, array{code:string,title:string,standard:string}> $results */
         $results = DB::query()
-            ->fromSub(function ($sub): void use ($like) {
+            ->fromSub(function ($sub) use ($like): void {
                 $sub
                     // KVED-2010
                     ->selectRaw(
