@@ -1,11 +1,61 @@
 @import 'tailwindcss';
 
+/* Primary Web Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Fonts */
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+    /* Brand Colors */
+    --color-primary: #1A5FBE;
+    --color-primary-dark: #0F4494;
+    --color-primary-light: #EEF4FF;
+
+    /* Semantic Status Colors */
+    --color-success: #16A34A;
+    --color-success-bg: #DCFCE7;
+    --color-warning: #D97706;
+    --color-warning-bg: #FEF3C7;
+    --color-danger: #DC2626;
+    --color-danger-bg: #FEE2E2;
+    --color-info: #0284C7;
+    --color-info-bg: #E0F2FE;
+
+    /* Neutral & Backgrounds */
+    --color-bg: #FFFFFF;
+    --color-surface: #F8F9FC;
+    --color-border: #E2E8F2;
+    --color-text: #0F1923;
+    --color-text-muted: #5A6A7F;
+    --color-text-hint: #94A3B8;
+
+    /* Borders & Shadows */
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
+}
+
+@layer base {
+    body {
+        @apply bg-[--color-bg] text-[--color-text] font-sans antialiased;
+        line-height: 1.65;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-semibold;
+    }
+}
+
+@layer components {
+    /* Glassmorphism utility for modern UI header */
+    .glass {
+        @apply bg-white/80 backdrop-blur-md border-b border-[--color-border];
+    }
 }
