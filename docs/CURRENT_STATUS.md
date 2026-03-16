@@ -57,7 +57,9 @@
 - [x] Livewire `PopularChanges.php` — топ-10 змін (на тестових даних)
 - [x] Главная: `ValueProposition`, `CTASection` (статические Blade-компоненты)
 - [x] Страница методологии `info.blade.php` (базовый шаблон)
-- [x] SEO: `<x-seo>` компонент (мета-теги + JSON-LD), без sitemap/robots поки що
+- [x] SEO: `<x-seo>` компонент (мета-теги + JSON-LD)
+- [x] SEO: `sitemap.xml` з БД (кеш на 24h)
+- [x] SEO: `robots.txt`
 - [x] Кеширование публичных страниц (code-detail) через middleware `cacheResponse` + Redis/Cache store
 
 **Критерий готовности**: Продукт функционально готов для показа инвесторам/партнёрам (демо-поток: пошук → деталь → маппінг → статус).

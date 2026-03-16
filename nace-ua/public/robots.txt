@@ -1,2 +1,7 @@
 User-agent: *
+Disallow: /admin
+
+Sitemap: http://204.168.131.195/sitemap.xml
+
+User-agent: *
 Disallow:
