@@ -19,24 +19,24 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('home') }}" class="flex items-center gap-2 group">
-                        <div class="w-8 h-8 bg-[--color-primary] rounded-lg flex items-center justify-center text-white font-bold group-hover:bg-[--color-primary-dark] transition-colors">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold transition-colors" style="background-color:#1A5FBE">
                             K
                         </div>
-                        <span class="text-xl font-bold tracking-tight text-[--color-text]">
-                            kved<span class="text-[--color-primary]">2027</span>
+                        <span class="text-xl font-bold tracking-tight text-slate-900">
+                            kved<span style="color:#1A5FBE">2027</span>
                         </span>
                     </a>
                 </div>
 
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex items-center gap-8">
-                    <a href="{{ route('catalog') }}" class="text-sm font-medium text-[--color-text] hover:text-[--color-primary] transition-colors {{ request()->routeIs('catalog*') ? 'text-[--color-primary]' : '' }}">
+                    <a href="{{ route('catalog') }}" class="text-sm font-medium transition-colors {{ request()->routeIs('catalog*') ? 'text-blue-700' : 'text-slate-700 hover:text-blue-700' }}">
                         Каталог
                     </a>
-                    <a href="{{ route('info') }}" class="text-sm font-medium text-[--color-text] hover:text-[--color-primary] transition-colors {{ request()->routeIs('info*') ? 'text-[--color-primary]' : '' }}">
+                    <a href="{{ route('info') }}" class="text-sm font-medium transition-colors {{ request()->routeIs('info*') ? 'text-blue-700' : 'text-slate-700 hover:text-blue-700' }}">
                         Методологія
                     </a>
-                    <a href="#" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-xl text-white bg-[--color-primary] hover:bg-[--color-primary-dark] shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]">
+                    <a href="#" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-semibold rounded-xl text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]" style="background-color:#1A5FBE">
                         Описати бізнес
                     </a>
                 </nav>
