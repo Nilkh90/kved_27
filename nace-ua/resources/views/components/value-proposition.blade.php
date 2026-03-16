@@ -1,23 +1,50 @@
-<section {{ $attributes->merge(['class' => 'mt-10 grid gap-8 md:grid-cols-2']) }}>
-    <div>
-        <h2 class="text-2xl font-semibold tracking-tight text-slate-900">
-            Прозорий перехід з КВЕД-2010 на NACE 2.1-UA
-        </h2>
-        <p class="mt-3 text-sm text-slate-700">
-            Сервіс допомагає українським бізнесам безболісно перейти на новий класифікатор,
-            мінімізуючи ризик помилок у кодах видів діяльності та повторних візитів до держорганів.
-        </p>
+<section {{ $attributes->merge(['class' => 'py-16']) }}>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold tracking-tight" style="color:#0F1923">
+                Чому варто перевірити зараз?
+            </h2>
+            <p class="mt-3 text-lg" style="color:#5A6A7F">
+                Перехід на NACE 2.1-UA обов'язковий. Дедлайн — 2027 рік.
+            </p>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {{-- Card 1 --}}
+            <div class="rounded-2xl p-6 border" style="background:#FEE2E2; border-color:#FCA5A5">
+                <div class="text-3xl mb-4">⚠️</div>
+                <h3 class="text-base font-bold mb-2" style="color:#991B1B">Штрафи за порушення</h3>
+                <p class="text-sm leading-relaxed" style="color:#7F1D1D">
+                    Несвоєчасна зміна коду може призвести до штрафів та проблем зі звітністю для бізнесу.
+                </p>
+            </div>
+
+            {{-- Card 2 --}}
+            <div class="rounded-2xl p-6 border" style="background:#FEF3C7; border-color:#FCD34D">
+                <div class="text-3xl mb-4">📅</div>
+                <h3 class="text-base font-bold mb-2" style="color:#92400E">Дедлайн 2027</h3>
+                <p class="text-sm leading-relaxed" style="color:#78350F">
+                    Наказ Держстату № 191 встановлює обов'язковий перехід до початку 2027 року.
+                </p>
+            </div>
+
+            {{-- Card 3 --}}
+            <div class="rounded-2xl p-6 border" style="background:#DCFCE7; border-color:#86EFAC">
+                <div class="text-3xl mb-4">✅</div>
+                <h3 class="text-base font-bold mb-2" style="color:#15803D">80% без дій</h3>
+                <p class="text-sm leading-relaxed" style="color:#166534">
+                    Для більшості кодів перехід відбувається автоматично — нічого робити не потрібно.
+                </p>
+            </div>
+
+            {{-- Card 4 --}}
+            <div class="rounded-2xl p-6 border" style="background:#EEF4FF; border-color:#93C5FD">
+                <div class="text-3xl mb-4">🆓</div>
+                <h3 class="text-base font-bold mb-2" style="color:#1D4ED8">Безкоштовна перевірка</h3>
+                <p class="text-sm leading-relaxed" style="color:#1E40AF">
+                    Сервіс повністю безкоштовний. Перевіряйте будь-яку кількість кодів без обмежень.
+                </p>
+            </div>
+        </div>
     </div>
-
-    <dl class="grid gap-4 text-sm text-slate-800">
-        <div class="rounded-lg border border-emerald-100 bg-emerald-50/60 p-3">
-            <dt class="font-semibold text-emerald-800">Готові маппінги</dt>
-            <dd class="mt-1 text-slate-700">База відповідностей КВЕД → NACE 2.1-UA з позначками, де потрібна додаткова дія.</dd>
-        </div>
-        <div class="rounded-lg border border-sky-100 bg-sky-50/60 p-3">
-            <dt class="font-semibold text-sky-800">Пояснення та приклади</dt>
-            <dd class="mt-1 text-slate-700">Методологія, включення/виключення та живі приклади для типових бізнес-сценаріїв.</dd>
-        </div>
-    </dl>
 </section>
-

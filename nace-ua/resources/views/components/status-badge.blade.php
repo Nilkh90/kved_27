@@ -1,49 +1,60 @@
 @props([
     'type',
     'actionRequired' => false,
+    'size' => 'md', // 'sm' | 'md' | 'lg'
 ])
 
 @php
     $config = match ($type) {
-        '1_TO_1' => ['color' => 'green', 'label' => 'Автоматичний перехід'],
-        '1_TO_N' => ['color' => 'amber', 'label' => 'Потрібен вибір напрямку'],
-        'N_TO_1' => ['color' => 'blue', 'label' => 'Коди об’єднані'],
-        default => ['color' => 'gray', 'label' => 'Невідомий статус'],
+        '1_TO_1' => [
+            'label' => 'Автоматичний перехід',
+            'icon'  => '✓',
+            'bg'    => '#DCFCE7',
+            'text'  => '#15803D',
+            'border'=> '#86EFAC',
+        ],
+        '1_TO_N' => [
+            'label' => 'Потрібен вибір напрямку',
+            'icon'  => '⚡',
+            'bg'    => '#FEF3C7',
+            'text'  => '#B45309',
+            'border'=> '#FCD34D',
+        ],
+        'N_TO_1' => [
+            'label' => "Коди об'єднані",
+            'icon'  => '⊕',
+            'bg'    => '#E0F2FE',
+            'text'  => '#0369A1',
+            'border'=> '#7DD3FC',
+        ],
+        default => [
+            'label' => 'Невідомий статус',
+            'icon'  => '?',
+            'bg'    => '#F1F5F9',
+            'text'  => '#64748B',
+            'border'=> '#CBD5E1',
+        ],
     };
 
     if ($actionRequired) {
-        $config = ['color' => 'red', 'label' => 'Потрібна перереєстрація'];
+        $config = [
+            'label' => 'Потрібна перереєстрація',
+            'icon'  => '!',
+            'bg'    => '#FEE2E2',
+            'text'  => '#B91C1C',
+            'border'=> '#FCA5A5',
+        ];
     }
 
-    $classes = [
-        'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
-        match ($config['color']) {
-            'green' => 'bg-emerald-100 text-emerald-800',
-            'amber' => 'bg-amber-100 text-amber-800',
-            'blue' => 'bg-sky-100 text-sky-800',
-            'red' => 'bg-rose-100 text-rose-800',
-            default => 'bg-slate-100 text-slate-700',
-        },
-    ];
+    $sizeClasses = match($size) {
+        'sm'  => 'px-2 py-0.5 text-xs rounded-md gap-1',
+        'lg'  => 'px-4 py-1.5 text-sm rounded-xl gap-2 font-semibold',
+        default => 'px-2.5 py-1 text-xs rounded-lg gap-1.5',
+    };
 @endphp
 
-<span {{ $attributes->merge(['class' => implode(' ', $classes)]) }}>
+<span {{ $attributes->merge(['class' => "inline-flex items-center font-medium $sizeClasses"]) }}
+      style="background-color:{{ $config['bg'] }}; color:{{ $config['text'] }}; border: 1px solid {{ $config['border'] }};">
+    <span aria-hidden="true">{{ $config['icon'] }}</span>
     {{ $config['label'] }}
 </span>
-
-@props(['type', 'actionRequired' => false])
-
-@php
-$config = match($type) {
-    '1_TO_1' => ['color' => 'green',  'label' => 'Автоматичний перехід'],
-    '1_TO_N' => ['color' => 'amber',  'label' => 'Потрібен вибір напрямку'],
-    'N_TO_1' => ['color' => 'blue',   'label' => 'Коди об\'єднано'],
-    default  => ['color' => 'gray',   'label' => 'Невідомо'],
-};
-if ($actionRequired) {
-    $config = ['color' => 'red', 'label' => 'Потрібна перереєстрація'];
-}
-@endphp
-
-<span class="badge badge-{{ $config['color'] }}">{{ $config['label'] }}</span>
-
