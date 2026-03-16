@@ -27,10 +27,10 @@
 - [x] `composer create-project laravel/laravel nace-ua`
 - [x] Установка: Livewire 4, Tailwind CSS 4, Alpine.js через Vite
 - [x] Настройка PostgreSQL + `.env` (на сервере: БД `nace_ua`, user `nace_user`)
-- [ ] Написание миграций: `kved_2010`, `nace_2027`, `transition_mapping`, `tags`
+- [x] Написание миграций: `kved_2010`, `nace_2027`, `transition_mapping`, `tags`
 - [x] `php artisan migrate` (пока для базовых таблиц Laravel, SQLite)
 - [x] Создание моделей (`Kved2010`, `Nace2027`, `TransitionMapping`)
-- [ ] Seed с 30–50 тестовыми записями + 10 маппингами
+- [x] Seed с тестовыми записями + 10+ маппингами (локально + на сервере)
 - [x] `SearchService.php` — базовый поиск (пока через in-memory заглушку, позже tsvector)
 - [x] Livewire компонент `SearchBar.php` с debounce
 - [x] Шаблон `search-bar.blade.php`
@@ -47,16 +47,16 @@
 - [ ] Заменить ILIKE на полнотекстовый поиск через `tsvector` + GIN-индексы
 - [ ] Наполнить `tags` синонимами для топ-100 видов бизнеса
 - [ ] `MappingService.php` — логика 1_TO_1 / 1_TO_N / N_TO_1
-- [ ] Blade-компонент `status-badge.blade.php` (три варианта)
-- [ ] Blade-компонент `mapping-panel.blade.php` — сравнение «до/после»
-- [ ] Blade-компонент `includes-excludes.blade.php` — блоки с гиперссылками
-- [ ] Страница `code-detail.blade.php` с полным контентом
+- [x] Blade-компонент `status-badge.blade.php` (три варианта)
+- [x] Blade-компонент `mapping-panel.blade.php` — сравнение «до/после»
+- [x] Blade-компонент `includes-excludes.blade.php` — блоки с гиперссылками
+- [x] Страница `code-detail.blade.php` с базовым контентом
 - [ ] `ClassifierService.php` + Livewire `ClassifierTree.php` (подключение к реальной БД)
-- [ ] Страница каталога `catalog.blade.php` с деревом
-- [ ] Livewire `PopularChanges.php` — топ-10 изменений
-- [ ] Главная: `ValueProposition`, `CTASection` (статические Blade-компоненты)
-- [ ] Страница методологии `info.blade.php` + отдельные FAQ-статьи
-- [ ] SEO: `<x-seo>`, `sitemap.xml`, `robots.txt`, JSON-LD
+- [x] Страница каталога `catalog.blade.php` с деревом
+- [x] Livewire `PopularChanges.php` — топ-10 змін (на тестових даних)
+- [x] Главная: `ValueProposition`, `CTASection` (статические Blade-компоненты)
+- [x] Страница методологии `info.blade.php` (базовый шаблон)
+- [x] SEO: `<x-seo>` компонент (мета-теги + JSON-LD), без sitemap/robots поки що
 - [ ] Кеширование через `spatie/laravel-responsecache` + Redis
 
 **Критерий готовности**: Продукт функционально готов для показа инвесторам/партнёрам.
