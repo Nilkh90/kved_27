@@ -46,12 +46,12 @@
 
 - [ ] Заменить ILIKE на полнотекстовый поиск через `tsvector` + GIN-индексы
 - [ ] Наполнить `tags` синонимами для топ-100 видов бизнеса
-- [ ] `MappingService.php` — логика 1_TO_1 / 1_TO_N / N_TO_1
+- [x] `MappingService.php` — базовая логика 1_TO_1 / 1_TO_N / N_TO_1
 - [x] Blade-компонент `status-badge.blade.php` (три варианта)
 - [x] Blade-компонент `mapping-panel.blade.php` — сравнение «до/после»
 - [x] Blade-компонент `includes-excludes.blade.php` — блоки с гиперссылками
 - [x] Страница `code-detail.blade.php` с базовым контентом
-- [ ] `ClassifierService.php` + Livewire `ClassifierTree.php` (подключение к реальной БД)
+- [x] `ClassifierService.php` + Livewire `ClassifierTree.php` (чтение з реальної БД, поки на тестових даних)
 - [x] Страница каталога `catalog.blade.php` с деревом
 - [x] Livewire `PopularChanges.php` — топ-10 змін (на тестових даних)
 - [x] Главная: `ValueProposition`, `CTASection` (статические Blade-компоненты)
