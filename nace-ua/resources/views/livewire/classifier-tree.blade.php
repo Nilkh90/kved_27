@@ -23,9 +23,9 @@
                     {{-- Node Row --}}
                     <button type="button"
                             wire:click="toggle('{{ $node['id'] }}')"
-                            class="w-full flex items-center gap-3 px-4 py-3 text-left transition-colors hover:bg-blue-50 {{ in_array($node['id'], $expanded, true) ? 'bg-blue-50' : 'bg-white' }}">
+                            class="w-full flex items-start gap-3 px-4 py-3 text-left transition-colors hover:bg-blue-50 {{ in_array($node['id'], $expanded, true) ? 'bg-blue-50' : 'bg-white' }}">
                         {{-- Expand Icon --}}
-                        <span class="w-5 h-5 flex-shrink-0 flex items-center justify-center rounded transition-transform"
+                        <span class="w-5 h-5 mt-0.5 flex-shrink-0 flex items-center justify-center rounded transition-transform"
                               style="color:#94A3B8; transform: rotate({{ in_array($node['id'], $expanded, true) ? '90' : '0' }}deg)">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
@@ -33,12 +33,12 @@
                         </span>
 
                         {{-- Code --}}
-                        <span class="font-mono text-sm font-bold flex-shrink-0" style="color:#1A5FBE">
+                        <span class="font-mono text-sm font-bold flex-shrink-0 mt-0.5" style="color:#1A5FBE">
                             {{ $node['code'] }}
                         </span>
 
                         {{-- Title --}}
-                        <span class="text-sm font-medium flex-1 min-w-0 truncate" style="color:#0F1923">
+                        <span class="text-sm font-medium flex-1 text-left" style="color:#0F1923">
                             {{ $node['title'] }}
                         </span>
                     </button>
@@ -48,16 +48,16 @@
                         <div class="border-t divide-y" style="border-color:#E2E8F2; divide-color:#F1F5F9; background:#F8F9FC">
                             @foreach ($node['children'] as $child)
                                 <a href="{{ route('code.show', [$standard, $child['code']]) }}"
-                                   class="flex items-center gap-3 px-4 py-2.5 hover:bg-white transition-colors group">
+                                   class="flex items-start gap-3 px-4 py-2.5 hover:bg-white transition-colors group">
                                     <span class="w-5 flex-shrink-0"></span>
-                                    <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#E2E8F2"></span>
-                                    <span class="font-mono text-xs font-semibold flex-shrink-0" style="color:#5A6A7F">
+                                    <span class="w-2 h-2 rounded-full flex-shrink-0 mt-1.5" style="background:#E2E8F2"></span>
+                                    <span class="font-mono text-xs font-semibold flex-shrink-0 mt-0.5" style="color:#5A6A7F">
                                         {{ $child['code'] }}
                                     </span>
-                                    <span class="text-sm flex-1 min-w-0 truncate group-hover:text-blue-700 transition-colors" style="color:#0F1923">
+                                    <span class="text-sm flex-1 group-hover:text-blue-700 transition-colors" style="color:#0F1923">
                                         {{ $child['title'] }}
                                     </span>
-                                    <svg class="w-4 h-4 flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:#1A5FBE">
+                                    <svg class="w-4 h-4 flex-shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:#1A5FBE">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                     </svg>
                                 </a>
