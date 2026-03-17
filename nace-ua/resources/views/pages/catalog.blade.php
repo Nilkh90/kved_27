@@ -23,7 +23,7 @@
     {{-- Sections Grid --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($sections as $section)
-            <a href="{{ route('catalog.section', $section->id) }}" 
+            <a href="{{ route('catalog.section', ['code' => strtolower($section->code)]) }}" 
                class="group relative p-8 rounded-3xl border transition-all hover:shadow-xl hover:border-blue-300 overflow-hidden"
                style="background:#FFFFFF; border-color:#E2E8F2">
                 

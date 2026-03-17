@@ -10,23 +10,45 @@
 
     {{-- Breadcrumbs --}}
     <nav class="flex items-center gap-2 text-sm mb-8" style="color:#94A3B8">
-        <a href="{{ route('home') }}" class="hover:underline transition-colors" style="color:#5A6A7F">Головна</a>
-        <span>/</span>
-        <a href="{{ route('catalog') }}" class="hover:underline transition-colors" style="color:#5A6A7F">Каталог</a>
-        
-        @if(isset($breadcrumbs) && count($breadcrumbs) > 0)
-            @foreach($breadcrumbs as $bc)
-                <span>/</span>
-                @if($bc['active'])
-                    <span class="font-mono font-semibold" style="color:#1A5FBE">{{ $bc['title'] }}</span>
-                @else
-                    <a href="{{ $bc['route'] }}" class="hover:underline transition-colors" style="color:#5A6A7F">{{ $bc['title'] }}</a>
-                @endif
-            @endforeach
-        @else
+        <ol class="flex items-center gap-2" itemscope itemtype="https://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="{{ route('home') }}" class="hover:underline transition-colors" style="color:#5A6A7F">
+                    <span itemprop="name">Головна</span>
+                </a>
+                <meta itemprop="position" content="1" />
+            </li>
             <span>/</span>
-            <span class="font-mono font-semibold" style="color:#1A5FBE">{{ $code->code }}</span>
-        @endif
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="{{ route('catalog') }}" class="hover:underline transition-colors" style="color:#5A6A7F">
+                    <span itemprop="name">Каталог</span>
+                </a>
+                <meta itemprop="position" content="2" />
+            </li>
+            
+            @if(isset($breadcrumbs) && count($breadcrumbs) > 0)
+                @foreach($breadcrumbs as $bc)
+                    <span>/</span>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        @if($bc['active'])
+                            <span itemprop="name" class="font-mono font-semibold" style="color:#1A5FBE">{{ $bc['title'] }}</span>
+                            <link itemprop="item" href="{{ $bc['route'] }}" />
+                        @else
+                            <a itemprop="item" href="{{ $bc['route'] }}" class="hover:underline transition-colors" style="color:#5A6A7F">
+                                <span itemprop="name">{{ $bc['title'] }}</span>
+                            </a>
+                        @endif
+                        <meta itemprop="position" content="{{ $loop->iteration + 2 }}" />
+                    </li>
+                @endforeach
+            @else
+                <span>/</span>
+                <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                    <span itemprop="name" class="font-mono font-semibold" style="color:#1A5FBE">{{ $code->code }}</span>
+                    <link itemprop="item" href="{{ url()->current() }}" />
+                    <meta itemprop="position" content="3" />
+                </li>
+            @endif
+        </ol>
     </nav>
 
     {{-- Code Header --}}

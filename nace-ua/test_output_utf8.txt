@@ -1,0 +1,406 @@
+﻿"""
+<!DOCTYPE html>\n
+<html lang="en" class="scroll-smooth">\n
+<head>\n
+    <meta charset="utf-8">\n
+    <meta name="viewport" content="width=device-width, initial-scale=1">\n
+    <meta name="csrf-token" content="2JNDoOGrAjgd2CRgqY7KYylzxY8117gs2v4L14Cu">\n
+\n
+    <title>J Information | kved2027</title>\n
+\n
+<meta name="description" content="╨Ъ╨░╤В╨░╨╗╨╛╨│ ╨║╨╗╨░╤Б╨╕╤Д╤Ц╨║╨░╤В╨╛╤А╨░ NACE 2.1-UA. Information">\n
+\n
+\n
+\n
+        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>\n
+</head>\n
+<body class="min-h-screen bg-[--color-bg] text-[--color-text] font-sans selection:bg-[--color-primary-light] selection:text-[--color-primary]">\n
+\n
+    <!-- Header / Navigation -->\n
+    <header class="glass sticky top-0 z-50">\n
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">\n
+            <div class="flex justify-between items-center h-16">\n
+                <!-- Logo -->\n
+                <div class="flex-shrink-0 flex items-center">\n
+                    <a href="http://localhost" class="flex items-center gap-2 group">\n
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold transition-colors" style="background-color:#1A5FBE">\n
+                            K\n
+                        </div>\n
+                        <span class="text-xl font-bold tracking-tight text-slate-900">\n
+                            kved<span style="color:#1A5FBE">2027</span>\n
+                        </span>\n
+                    </a>\n
+                </div>\n
+\n
+                <!-- Desktop Navigation -->\n
+                <nav class="hidden md:flex items-center gap-8">\n
+                    <a href="http://localhost/catalog" class="text-sm font-medium transition-colors text-blue-700">\n
+                        ╨Ъ╨░╤В╨░╨╗╨╛╨│\n
+                    </a>\n
+                    <a href="http://localhost/info" class="text-sm font-medium transition-colors text-slate-700 hover:text-blue-700">\n
+                        ╨Ь╨╡╤В╨╛╨┤╨╛╨╗╨╛╨│╤Ц╤П\n
+                    </a>\n
+                    <a href="#" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-semibold rounded-xl text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]" style="background-color:#1A5FBE">\n
+                        ╨Ю╨┐╨╕╤Б╨░╤В╨╕ ╨▒╤Ц╨╖╨╜╨╡╤Б\n
+                    </a>\n
+                </nav>\n
+\n
+                <!-- Mobile menu button (placeholder for Alpine) -->\n
+                <div class="md:hidden flex items-center" x-data="{ open: false }">\n
+                    <button @click="open = !open" class="text-[--color-text-muted] hover:text-[--color-text]">\n
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">\n
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="4 6h16M4 12h16M4 18h16" />\n
+                        </svg>\n
+                    </button>\n
+                    <!-- Mobile Menu (Alpine) -->\n
+                    <div x-show="open" @click.away="open = false" \n
+                         x-transition:enter="transition ease-out duration-200"\n
+                         x-transition:enter-start="opacity-0 scale-95"\n
+                         x-transition:enter-end="opacity-100 scale-100"\n
+                         class="absolute top-16 right-4 w-48 py-2 bg-white rounded-2xl shadow-xl border border-[--color-border] z-50">\n
+                        <a href="http://localhost/catalog" class="block px-4 py-2 text-sm hover:bg-[--color-surface]">╨Ъ╨░╤В╨░╨╗╨╛╨│</a>\n
+                        <a href="http://localhost/info" class="block px-4 py-2 text-sm hover:bg-[--color-surface]">╨Ь╨╡╤В╨╛╨┤╨╛╨╗╨╛╨│╤Ц╤П</a>\n
+                        <div class="border-t border-[--color-border] my-1"></div>\n
+                        <a href="#" class="block px-4 py-2 text-sm text-[--color-primary] font-bold">╨Ю╨┐╨╕╤Б╨░╤В╨╕ ╨▒╤Ц╨╖╨╜╨╡╤Б</a>\n
+                    </div>\n
+                </div>\n
+            </div>\n
+        </div>\n
+    </header>\n
+\n
+    <!-- Main Content -->\n
+    <main class="py-8">\n
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">\n
+    \n
+    <nav class="flex items-center gap-2 text-sm mb-8" style="color:#94A3B8">\n
+        <a href="http://localhost" class="hover:underline transition-colors" style="color:#5A6A7F">╨У╨╛╨╗╨╛╨▓╨╜╨░</a>\n
+        <span>/</span>\n
+        <a href="http://localhost/catalog" class="hover:underline transition-colors" style="color:#5A6A7F">╨Ъ╨░╤В╨░╨╗╨╛╨│</a>\n
+                    <span>/</span>\n
+                            <span style="color:#0F1923; font-weight:600">J тАФ Information</span>\n
+                        </nav>\n
+\n
+    <div class="lg:grid lg:grid-cols-12 gap-12">\n
+        \n
+        <div class="lg:col-span-12 mb-8">\n
+            <div class="bg-white rounded-3xl border p-8 shadow-sm" style="border-color:#E2E8F2">\n
+                <span class="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4"\n
+                      style="background:#EEF4FF; color:#1A5FBE">\n
+                    ╨б╨╡╨║╤Ж╤Ц╤П\n
+                </span>\n
+                \n
+                <div class="flex flex-col md:flex-row md:items-start justify-between gap-6">\n
+                    <div class="max-w-4xl">\n
+                        <h1 class="text-3xl md:text-4xl font-bold mb-6" style="color:#0F1923">\n
+                            <span class="font-mono text-blue-600">J</span> тАФ Information\n
+                        </h1>\n
+                        \n
+                                            </div>\n
+\n
+                    <div class="hidden md:block">\n
+                        <a href="http://localhost/catalog" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-all hover:bg-slate-50" style="border-color:#E2E8F2; color:#5A6A7F">\n
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">\n
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>\n
+                            </svg>\n
+                            ╨Т╤Б╤М╨╛╨│╨╛ ╨║╨░╤В╨░╨╗╨╛╨│╤Г\n
+                        </a>\n
+                    </div>\n
+                </div>\n
+            </div>\n
+        </div>\n
+\n
+        \n
+        <div class="lg:col-span-12">\n
+            <div class="mb-6 flex items-center justify-between">\n
+                <h2 class="text-xl font-bold" style="color:#0F1923">\n
+                     ╨Ф╨╛╤Б╤В╤Г╨┐╨╜╤Ц ╨а╨╛╨╖╨┤╤Ц╨╗╨╕ (Divisions)\n
+                                    </h2>\n
+                <span class="text-sm font-medium px-4 py-1.5 rounded-full bg-slate-100 text-slate-600">\n
+                    1 ╨╡╨╗╨╡╨╝╨╡╨╜╤В╤Ц╨▓\n
+                </span>\n
+            </div>\n
+\n
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">\n
+                                                        <a href="http://localhost/catalog/62" \n
+                       class="group block p-6 rounded-2xl border transition-all hover:shadow-lg hover:border-blue-300 hover:scale-[1.01]"\n
+                       style="background:#FFFFFF; border-color:#E2E8F2">\n
+                        <div class="flex items-start gap-5">\n
+                            <div class="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center font-mono font-bold text-xl transition-all group-hover:bg-blue-600 group-hover:text-white group-hover:rotate-3 shadow-sm"\n
+                                 style="background:#F0F7FF; color:#1A5FBE">\n
+                                62\n
+                            </div>\n
+                            <div class="flex-1">\n
+                                <h3 class="text-lg font-bold mb-2 group-hover:text-blue-700 transition-colors leading-snug" style="color:#0F1923">\n
+                                    Computer programming\n
+                                </h3>\n
+                                                            </div>\n
+                            <div class="flex-shrink-0 self-center">\n
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center transition-all group-hover:bg-blue-50 group-hover:translate-x-1" style="color:#94A3B8">\n
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">\n
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>\n
+                                    </svg>\n
+                                </div>\n
+                            </div>\n
+                        </div>\n
+                    </a>\n
+                            </div>\n
+        </div>\n
+    </div>\n
+</div>\n
+    </main>\n
+\n
+    <!-- Footer -->\n
+    <footer class="bg-[--color-surface] border-t border-[--color-border] py-12 mt-auto">\n
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">\n
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">\n
+                <div class="col-span-1 md:col-span-2">\n
+                    <div class="flex items-center gap-2 mb-4">\n
+                        <div class="w-8 h-8 bg-[--color-primary] rounded-lg flex items-center justify-center text-white font-bold">\n
+                            K\n
+                        </div>\n
+                        <span class="text-xl font-bold tracking-tight">kved<span class="text-[--color-primary]">2027</span></span>\n
+                    </div>\n
+                    <p class="text-[--color-text-muted] max-w-sm mb-6">\n
+                        ╨Я╤А╨╛╤Д╨╡╤Б╤Ц╨╣╨╜╨╕╨╣ ╤Б╨╡╤А╨▓╤Ц╤Б ╨┐╨╡╤А╨╡╤Е╨╛╨┤╤Г ╨╖ ╨║╨╗╨░╤Б╨╕╤Д╤Ц╨║╨░╤В╨╛╤А╨░ ╨Ъ╨Т╨Х╨Ф-2010 ╨╜╨░ NACE 2.1-UA. \n
+                        ╨Ч╤А╨╛╨╖╤Г╨╝╤Ц╨╗╨╛, ╤И╨▓╨╕╨┤╨║╨╛ ╤В╨░ ╨▒╨╡╨╖╨║╨╛╤И╤В╨╛╨▓╨╜╨╛ ╨┤╨╗╤П ╤Г╨║╤А╨░╤Ч╨╜╤Б╤М╨║╨╛╨│╨╛ ╨▒╤Ц╨╖╨╜╨╡╤Б╤Г.\n
+                    </p>\n
+                    <a href="https://ukrstat.gov.ua/metod_pob/naryadi/2023/n191.pdf" target="_blank" class="text-sm font-medium text-[--color-primary] hover:underline flex items-center gap-2">\n
+                        <span>╨Э╨░╨║╨░╨╖ ╨Ф╨╡╤А╨╢╤Б╤В╨░╤В╤Г тДЦ 191</span>\n
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>\n
+                    </a>\n
+                </div>\n
+                <div>\n
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-6 text-[--color-text-hint]">╨Э╨░╨▓╤Ц╨│╨░╤Ж╤Ц╤П</h4>\n
+                    <ul class="space-y-4 text-sm">\n
+                        <li><a href="http://localhost" class="text-[--color-text-muted] hover:text-[--color-primary]">╨У╨╛╨╗╨╛╨▓╨╜╨░</a></li>\n
+                        <li><a href="http://localhost/catalog" class="text-[--color-text-muted] hover:text-[--color-primary]">╨Ъ╨░╤В╨░╨╗╨╛╨│</a></li>\n
+                        <li><a href="http://localhost/info" class="text-[--color-text-muted] hover:text-[--color-primary]">╨Ь╨╡╤В╨╛╨┤╨╛╨╗╨╛╨│╤Ц╤П</a></li>\n
+                    </ul>\n
+                </div>\n
+                <div>\n
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-6 text-[--color-text-hint]">╨Ф╨╛╨┐╨╛╨╝╨╛╨│╨░</h4>\n
+                    <ul class="space-y-4 text-sm">\n
+                        <li><a href="http://localhost/info" class="text-[--color-text-muted] hover:text-[--color-primary]">FAQ</a></li>\n
+                        <li><a href="#" class="text-[--color-text-muted] hover:text-[--color-primary]">╨Ч╨▓╨╛╤А╨╛╤В╨╜╨╕╨╣ ╨╖╨▓'╤П╨╖╨╛╨║</a></li>\n
+                        <li><a href="#" class="text-[--color-text-muted] hover:text-[--color-primary]">╨Я╨╛╨╗╤Ц╤В╨╕╨║╨░ ╨║╨╛╨╜╤Д╤Ц╨┤╨╡╨╜╤Ж╤Ц╨╣╨╜╨╛╤Б╤В╤Ц</a></li>\n
+                    </ul>\n
+                </div>\n
+            </div>\n
+            <div class="border-t border-[--color-border] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">\n
+                <p class="text-sm text-[--color-text-hint]">\n
+                    &copy; 2026 kved2027.ua. ╨Т╤Б╤Ц ╨┐╤А╨░╨▓╨░ ╨╖╨░╤Е╨╕╤Й╨╡╨╜╤Ц.\n
+                </p>\n
+                <div class="flex gap-6">\n
+                    <!-- Placeholder icons or social links -->\n
+                </div>\n
+            </div>\n
+        </div>\n
+    </footer>\n
+\n
+    <!-- Livewire Scripts -->\n
+<script src="http://localhost/livewire-0b6a5be6/livewire.js?id=8f29b734"   data-csrf="2JNDoOGrAjgd2CRgqY7KYylzxY8117gs2v4L14Cu" data-module-url="http://localhost/livewire-0b6a5be6" data-update-uri="http://localhost/livewire-0b6a5be6/update" data-navigate-once="true"></script>\n
+</body>\n
+</html>\n
+""" // vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1850
+
+   FAIL  Tests\Feature\SeoUrlNavigationTest
+  тЬУ section seo url       0.62s  
+  тЬУ division seo url      0.03s  
+  тЬУ group seo url         0.03s  
+  тЬУ class seo url         0.04s  
+  тЬУ invalid hierarchy reтАж 0.04s  
+  тЬУ invalid code returnsтАж 0.03s  
+  тип section link generatтАж 0.05s  
+  тЬУ division link generaтАж 0.60s  
+  тЬУ group link generatioтАж 0.03s  
+  тЬУ class link generatioтАж 0.04s  
+  тФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФАтФА  
+   FAILED  Tests\Feature\SeoUтАж   
+  Expected: <!DOCTYPE html>\n
+<html lang="en" class="scroll-smooth">\n
+<head>\n
+    <meta charset="utf-8">\n
+    <meta name="viewport" content="width=device-width, initial-scale=1">\n
+    <meta name="csrf-token" content="9Q8UsD76P0clGmZ72hXgrIZhIwi7T5V0XKakzZb9">\n
+\n
+    <title>╨Ъ╨░╤В╨░╨╗╨╛╨│ ╨║╨╗╨░╤Б╨╕╤Д╤Ц╨║╨░╤В╨╛╤А╨░ NACE | kved2027</title>\n
+\n
+<meta name="description" content="╨Я╨╛╨▓╨╜╨╕╨╣ ╨║╨░╤В╨░╨╗╨╛╨│ ╨║╨╗╨░╤Б╨╕╤Д╤Ц╨║╨░╤В╨╛╤А╤Ц╨▓ ╨Ъ╨Т╨Х╨Ф-2010 ╤В╨░ NACE 2.1-UA ╨╖ ╨╝╨╛╨╢╨╗╨╕╨▓╤Ц╤Б╤В╤О ╨┐╨╛╤И╤Г╨║╤Г ╤В╨░ ╨┐╨╡╤А╨╡╨│╨╗╤П╨┤╤Г ╤Ц╤Ф╤А╨░╤А╤Е╤Ц╤З╨╜╨╛╨│╨╛ ╨┤╨╡╤А╨╡╨▓╨░ ╨▓╨╕╨┤╤Ц╨▓ ╨┤╤Ц╤П╨╗╤М╨╜╨╛╤Б╤В╤Ц.">\n
+\n
+\n
+\n
+        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>\n
+</head>\n
+<body class="min-h-screen bg-[--color-bg] text-[--color-text] font-sans selection:bg-[--color-primary-light] selection:text-[--color-primary]">\n
+\n
+    <!-- Header / Navigation -->\n
+    <header class="glass sticky top-0 z-50">\n
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">\n
+            <div class="flex justify-between items-center h-16">\n
+                <!-- Logo -->\n
+                <div class="flex-shrink-0 flex items-center">\n
+                    <a href="http://localhost" class="flex items-center gap-2 group">\n
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold transition-colors" style="background-color:#1A5FBE">\n
+                            K\n
+                        </div>\n
+                        <span class="text-xl font-bold tracking-tight text-slate-900">\n
+                            kved<span style="color:#1A5FBE">2027</span>\n
+                        </span>\n
+                    </a>\n
+                </div>\n
+\n
+                <!-- Desktop Navigation -->\n
+                <nav class="hidden md:flex items-center gap-8">\n
+                    <a href="http://localhost/catalog" class="text-sm font-medium transition-colors text-blue-700">\n
+                        ╨Ъ╨░╤В╨░╨╗╨╛╨│\n
+                    </a>\n
+                    <a href="http://localhost/info" class="text-sm font-medium transition-colors text-slate-700 hover:text-blue-700">\n
+                        ╨Ь╨╡╤В╨╛╨┤╨╛╨╗╨╛╨│╤Ц╤П\n
+                    </a>\n
+                    <a href="#" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-semibold rounded-xl text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]" style="background-color:#1A5FBE">\n
+                        ╨Ю╨┐╨╕╤Б╨░╤В╨╕ ╨▒╤Ц╨╖╨╜╨╡╤Б\n
+                    </a>\n
+                </nav>\n
+\n
+                <!-- Mobile menu button (placeholder for Alpine) -->\n
+                <div class="md:hidden flex items-center" x-data="{ open: false }">\n
+                    <button @click="open = !open" class="text-[--color-text-muted] hover:text-[--color-text]">\n
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">\n
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="4 6h16M4 12h16M4 18h16" />\n
+                        </svg>\n
+                    </button>\n
+                    <!-- Mobile Menu (Alpine) -->\n
+                    <div x-show="open" @click.away="open = false" \n
+                         x-transition:enter="transition ease-out duration-200"\n
+                         x-transition:enter-start="opacity-0 scale-95"\n
+                         x-transition:enter-end="opacity-100 scale-100"\n
+                         class="absolute top-16 right-4 w-48 py-2 bg-white rounded-2xl shadow-xl border border-[--color-border] z-50">\n
+                        <a href="http://localhost/catalog" class="block px-4 py-2 text-sm hover:bg-[--color-surface]">╨Ъ╨░╤В╨░╨╗╨╛╨│</a>\n
+                        <a href="http://localhost/info" class="block px-4 py-2 text-sm hover:bg-[--color-surface]">╨Ь╨╡╤В╨╛╨┤╨╛╨╗╨╛╨│╤Ц╤П</a>\n
+                        <div class="border-t border-[--color-border] my-1"></div>\n
+                        <a href="#" class="block px-4 py-2 text-sm text-[--color-primary] font-bold">╨Ю╨┐╨╕╤Б╨░╤В╨╕ ╨▒╤Ц╨╖╨╜╨╡╤Б</a>\n
+                    </div>\n
+                </div>\n
+            </div>\n
+        </div>\n
+    </header>\n
+\n
+    <!-- Main Content -->\n
+    <main class="py-8">\n
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">\n
+    \n
+    <div class="mb-12">\n
+        <nav class="flex items-center gap-2 text-sm mb-3" style="color:#94A3B8">\n
+            <a href="http://localhost" class="hover:underline" style="color:#5A6A7F">╨У╨╛╨╗╨╛╨▓╨╜╨░</a>\n
+            <span>/</span>\n
+            <span style="color:#0F1923; font-weight:500">╨Ъ╨░╤В╨░╨╗╨╛╨│</span>\n
+        </nav>\n
+        <h1 class="text-4xl font-extrabold tracking-tight" style="color:#0F1923">╨Ъ╨░╤В╨░╨╗╨╛╨│ ╨║╨╗╨░╤Б╨╕╤Д╤Ц╨║╨░╤В╨╛╤А╤Ц╨▓</h1>\n
+        <p class="mt-4 text-lg max-w-2xl" style="color:#5A6A7F">\n
+            ╨Ю╨▒╨╡╤А╤Ц╤В╤М ╤А╨╛╨╖╨┤╤Ц╨╗ ╨┤╨╗╤П ╨┤╨╡╤В╨░╨╗╤М╨╜╨╛╨│╨╛ ╨┐╨╡╤А╨╡╨│╨╗╤П╨┤╤Г ╤Ц╤Ф╤А╨░╤А╤Е╤Ц╤Ч ╤В╨░ ╨┐╨╡╤А╨╡╤Е╨╛╨┤╤Г ╨╝╤Ц╨╢ ╤Б╤В╨░╨╜╨┤╨░╤А╤В╨░╨╝╨╕ ╨Ъ╨Т╨Х╨Ф-2010 ╤В╨░ NACE 2.1-UA.\n
+        </p>\n
+    </div>\n
+\n
+    \n
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">\n
+                    <a href="http://localhost/catalog/section-section-j" \n
+               class="group relative p-8 rounded-3xl border transition-all hover:shadow-xl hover:border-blue-300 overflow-hidden"\n
+               style="background:#FFFFFF; border-color:#E2E8F2">\n
+                \n
+                \n
+                <div class="absolute -top-4 -right-4 text-7xl font-mono font-black opacity-[0.03] transition-opacity group-hover:opacity-[0.05]" style="color:#1A5FBE">\n
+                    J\n
+                </div>\n
+\n
+                <div class="relative z-10">\n
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center font-mono font-bold text-xl mb-6 transition-colors group-hover:bg-blue-600 group-hover:text-white"\n
+                         style="background:#F0F7FF; color:#1A5FBE">\n
+                        J\n
+                    </div>\n
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-blue-700 transition-colors" style="color:#0F1923">\n
+                        Information\n
+                    </h3>\n
+                                        \n
+                    <div class="mt-6 flex items-center gap-2 text-sm font-bold transition-colors group-hover:text-blue-700" style="color:#1A5FBE">\n
+                        ╨Я╨╡╤А╨╡╨│╨╗╤П╨╜╤Г╤В╨╕ ╤А╨╛╨╖╨┤╤Ц╨╗╨╕\n
+                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">\n
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>\n
+                        </svg>\n
+                    </div>\n
+                </div>\n
+            </a>\n
+            </div>\n
+</div>\n
+    </main>\n
+\n
+    <!-- Footer -->\n
+    <footer class="bg-[--color-surface] border-t border-[--color-border] py-12 mt-auto">\n
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">\n
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">\n
+                <div class="col-span-1 md:col-span-2">\n
+                    <div class="flex items-center gap-2 mb-4">\n
+                        <div class="w-8 h-8 bg-[--color-primary] rounded-lg flex items-center justify-center text-white font-bold">\n
+                            K\n
+                        </div>\n
+                        <span class="text-xl font-bold tracking-tight">kved<span class="text-[--color-primary]">2027</span></span>\n
+                    </div>\n
+                    <p class="text-[--color-text-muted] max-w-sm mb-6">\n
+                        ╨Я╤А╨╛╤Д╨╡╤Б╤Ц╨╣╨╜╨╕╨╣ ╤Б╨╡╤А╨▓╤Ц╤Б ╨┐╨╡╤А╨╡╤Е╨╛╨┤╤Г ╨╖ ╨║╨╗╨░╤Б╨╕╤Д╤Ц╨║╨░╤В╨╛╤А╨░ ╨Ъ╨Т╨Х╨Ф-2010 ╨╜╨░ NACE 2.1-UA. \n
+                        ╨Ч╤А╨╛╨╖╤Г╨╝╤Ц╨╗╨╛, ╤И╨▓╨╕╨┤╨║╨╛ ╤В╨░ ╨▒╨╡╨╖╨║╨╛╤И╤В╨╛╨▓╨╜╨╛ ╨┤╨╗╤П ╤Г╨║╤А╨░╤Ч╨╜╤Б╤М╨║╨╛╨│╨╛ ╨▒╤Ц╨╖╨╜╨╡╤Б╤Г.\n
+                    </p>\n
+                    <a href="https://ukrstat.gov.ua/metod_pob/naryadi/2023/n191.pdf" target="_blank" class="text-sm font-medium text-[--color-primary] hover:underline flex items-center gap-2">\n
+                        <span>╨Э╨░╨║╨░╨╖ ╨Ф╨╡╤А╨╢╤Б╤В╨░╤В╤Г тДЦ 191</span>\n
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>\n
+                    </a>\n
+                </div>\n
+                <div>\n
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-6 text-[--color-text-hint]">╨Э╨░╨▓╤Ц╨│╨░╤Ж╤Ц╤П</h4>\n
+                    <ul class="space-y-4 text-sm">\n
+                        <li><a href="http://localhost" class="text-[--color-text-muted] hover:text-[--color-primary]">╨У╨╛╨╗╨╛╨▓╨╜╨░</a></li>\n
+                        <li><a href="http://localhost/catalog" class="text-[--color-text-muted] hover:text-[--color-primary]">╨Ъ╨░╤В╨░╨╗╨╛╨│</a></li>\n
+                        <li><a href="http://localhost/info" class="text-[--color-text-muted] hover:text-[--color-primary]">╨Ь╨╡╤В╨╛╨┤╨╛╨╗╨╛╨│╤Ц╤П</a></li>\n
+                    </ul>\n
+                </div>\n
+                <div>\n
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-6 text-[--color-text-hint]">╨Ф╨╛╨┐╨╛╨╝╨╛╨│╨░</h4>\n
+                    <ul class="space-y-4 text-sm">\n
+                        <li><a href="http://localhost/info" class="text-[--color-text-muted] hover:text-[--color-primary]">FAQ</a></li>\n
+                        <li><a href="#" class="text-[--color-text-muted] hover:text-[--color-primary]">╨Ч╨▓╨╛╤А╨╛╤В╨╜╨╕╨╣ ╨╖╨▓'╤П╨╖╨╛╨║</a></li>\n
+                        <li><a href="#" class="text-[--color-text-muted] hover:text-[--color-primary]">╨Я╨╛╨╗╤Ц╤В╨╕╨║╨░ ╨║╨╛╨╜╤Д╤Ц╨┤╨╡╨╜╤Ж╤Ц╨╣╨╜╨╛╤Б╤В╤Ц</a></li>\n
+                    </ul>\n
+                </div>\n
+            </div>\n
+            <div class="border-t border-[--color-border] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">\n
+                <p class="text-sm text-[--color-text-hint]">\n
+                    &copy; 2026 kved2027.ua. ╨Т╤Б╤Ц ╨┐╤А╨░╨▓╨░ ╨╖╨░╤Е╨╕╤Й╨╡╨╜╤Ц.\n
+                </p>\n
+                <div class="flex gap-6">\n
+                    <!-- Placeholder icons or social links -->\n
+                </div>\n
+            </div>\n
+        </div>\n
+    </footer>\n
+\n
+    <!-- Livewire Scripts -->\n
+<script src="http://localhost/livewire-0b6a5be6/livewire.js?id=8f29b734"   data-csrf="9Q8UsD76P0clGmZ72hXgrIZhIwi7T5V0XKakzZb9" data-module-url="http://localhost/livewire-0b6a5be6" data-update-uri="http://localhost/livewire-0b6a5be6/update" data-navigate-once="true"></script>\n
+</body>\n
+</html>\n
+
+
+  To contain: /catalog/section-j
+
+  at tests\Feature\SeoUrlNavigationTest.php:72
+     68тЦХ 
+     69тЦХ     public function test_section_link_generation()
+     70тЦХ     {
+     71тЦХ         $response = $this->get('/catalog');
+  тЮЬ  72тЦХ         $response->assertSee('/catalog/section-j');
+     73тЦХ     }
+     74тЦХ 
+     75тЦХ     public function test_division_link_generation()
+     76тЦХ     {
+
+
+  Tests:    1 failed, 9 passed (17 assertions)
+  Duration: 1.72s
+

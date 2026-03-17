@@ -59,5 +59,13 @@ class Nace2027 extends Model
     {
         return $query->where('level', 'CLASS');
     }
+
+    /**
+     * Get the SEO-friendly slug for the code (dots replaced by hyphens).
+     */
+    public function getSlugAttribute(): string
+    {
+        return str_replace('.', '-', $this->code);
+    }
 }
 

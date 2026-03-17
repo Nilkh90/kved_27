@@ -9,17 +9,38 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     {{-- Breadcrumbs --}}
     <nav class="flex items-center gap-2 text-sm mb-8" style="color:#94A3B8">
-        <a href="{{ route('home') }}" class="hover:underline transition-colors" style="color:#5A6A7F">Головна</a>
-        <span>/</span>
-        <a href="{{ route('catalog') }}" class="hover:underline transition-colors" style="color:#5A6A7F">Каталог</a>
-        @foreach($breadcrumbs as $bc)
+        <ol class="flex items-center gap-2" itemscope itemtype="https://schema.org/BreadcrumbList">
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="{{ route('home') }}" class="hover:underline transition-colors" style="color:#5A6A7F">
+                    <span itemprop="name">Головна</span>
+                </a>
+                <meta itemprop="position" content="1" />
+            </li>
             <span>/</span>
-            @if($bc['active'])
-                <span style="color:#0F1923; font-weight:600">{{ $bc['title'] }}</span>
-            @else
-                <a href="{{ $bc['route'] }}" class="hover:underline transition-colors" style="color:#5A6A7F">{{ $bc['title'] }}</a>
+            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                <a itemprop="item" href="{{ route('catalog') }}" class="hover:underline transition-colors" style="color:#5A6A7F">
+                    <span itemprop="name">Каталог</span>
+                </a>
+                <meta itemprop="position" content="2" />
+            </li>
+            
+            @if(isset($breadcrumbs) && count($breadcrumbs) > 0)
+                @foreach($breadcrumbs as $bc)
+                    <span>/</span>
+                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+                        @if($bc['active'])
+                            <span itemprop="name" style="color:#0F1923; font-weight:600">{{ $bc['title'] }}</span>
+                            <link itemprop="item" href="{{ $bc['route'] }}" />
+                        @else
+                            <a itemprop="item" href="{{ $bc['route'] }}" class="hover:underline transition-colors" style="color:#5A6A7F">
+                                <span itemprop="name">{{ $bc['title'] }}</span>
+                            </a>
+                        @endif
+                        <meta itemprop="position" content="{{ $loop->iteration + 2 }}" />
+                    </li>
+                @endforeach
             @endif
-        @endforeach
+        </ol>
     </nav>
 
     <div class="lg:grid lg:grid-cols-12 gap-12">
@@ -74,7 +95,17 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @forelse($children as $child)
-                    <a href="{{ route('catalog.' . strtolower($child->level), $child->id) }}" 
+                    @php
+                        $childParams = [];
+                        if ($child->level === 'DIVISION') {
+                            $childParams = ['division_code' => $child->code];
+                        } elseif ($child->level === 'GROUP') {
+                            $childParams = ['division_code' => $item->code, 'group_code' => $child->slug];
+                        } elseif ($child->level === 'CLASS') {
+                            $childParams = ['division_code' => $item->parent->code, 'group_code' => $item->slug, 'class_code' => $child->slug];
+                        }
+                    @endphp
+                    <a href="{{ route('catalog.' . strtolower($child->level), $childParams) }}" 
                        class="group block p-6 rounded-2xl border transition-all hover:shadow-lg hover:border-blue-300 hover:scale-[1.01]"
                        style="background:#FFFFFF; border-color:#E2E8F2">
                         <div class="flex items-start gap-5">
