@@ -13,8 +13,20 @@
         <a href="{{ route('home') }}" class="hover:underline transition-colors" style="color:#5A6A7F">Головна</a>
         <span>/</span>
         <a href="{{ route('catalog') }}" class="hover:underline transition-colors" style="color:#5A6A7F">Каталог</a>
-        <span>/</span>
-        <span class="font-mono font-semibold" style="color:#1A5FBE">{{ $code->code }}</span>
+        
+        @if(isset($breadcrumbs) && count($breadcrumbs) > 0)
+            @foreach($breadcrumbs as $bc)
+                <span>/</span>
+                @if($bc['active'])
+                    <span class="font-mono font-semibold" style="color:#1A5FBE">{{ $bc['title'] }}</span>
+                @else
+                    <a href="{{ $bc['route'] }}" class="hover:underline transition-colors" style="color:#5A6A7F">{{ $bc['title'] }}</a>
+                @endif
+            @endforeach
+        @else
+            <span>/</span>
+            <span class="font-mono font-semibold" style="color:#1A5FBE">{{ $code->code }}</span>
+        @endif
     </nav>
 
     {{-- Code Header --}}

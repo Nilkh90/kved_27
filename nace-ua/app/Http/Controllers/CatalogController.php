@@ -27,12 +27,13 @@ class CatalogController extends Controller
             'children' => $divisions,
             'level' => 'section',
             'childLevel' => 'division',
+            'breadcrumbs' => $this->getBreadcrumbs($section)
         ]);
     }
 
     public function division(string $id): View
     {
-        $division = \App\Models\Nace2027::where('level', 'DIVISION')->findOrFail($id);
+        $division = \App\Models\Nace2027::where('level', 'DIVISION')->with('parent')->findOrFail($id);
         $groups = $division->children()->orderBy('code')->get();
 
         return view('pages.catalog.item', [
@@ -40,12 +41,13 @@ class CatalogController extends Controller
             'children' => $groups,
             'level' => 'division',
             'childLevel' => 'group',
+            'breadcrumbs' => $this->getBreadcrumbs($division)
         ]);
     }
 
     public function group(string $id): View
     {
-        $group = \App\Models\Nace2027::where('level', 'GROUP')->findOrFail($id);
+        $group = \App\Models\Nace2027::where('level', 'GROUP')->with('parent.parent')->findOrFail($id);
         $classes = $group->children()->orderBy('code')->get();
 
         return view('pages.catalog.item', [
@@ -53,17 +55,34 @@ class CatalogController extends Controller
             'children' => $classes,
             'level' => 'group',
             'childLevel' => 'class',
+            'breadcrumbs' => $this->getBreadcrumbs($group)
         ]);
     }
 
     public function class(string $id): View
     {
-        $class = \App\Models\Nace2027::where('level', 'CLASS')->findOrFail($id);
+        $class = \App\Models\Nace2027::where('level', 'CLASS')->with('parent.parent.parent')->findOrFail($id);
 
         return view('pages.code-detail', [
             'standard' => 'nace',
             'code' => $class,
+            'breadcrumbs' => $this->getBreadcrumbs($class)
         ]);
+    }
+
+    private function getBreadcrumbs($item): array
+    {
+        $breadcrumbs = [];
+        $current = $item;
+        while ($current) {
+            array_unshift($breadcrumbs, [
+                'title' => $current->code . ($current->level === 'SECTION' ? ' — ' . $current->title : ''),
+                'route' => route('catalog.' . strtolower($current->level), $current->id),
+                'active' => $current->id === $item->id
+            ]);
+            $current = $current->parent;
+        }
+        return $breadcrumbs;
     }
 
     public function byStandard(string $standard, Request $request): View

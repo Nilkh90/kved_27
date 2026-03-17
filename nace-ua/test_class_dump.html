@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="BQPt8CZo4CtgqzWuIRCGAPzdVGM5ZQZSCo2wbZnz">
+
+    <title>01.11 — Growing of cereals | kved2027</title>
+
+<meta name="description" content="Test class description">
+
+
+
+        <!-- Livewire Styles --><style >[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+</head>
+<body class="min-h-screen bg-[--color-bg] text-[--color-text] font-sans selection:bg-[--color-primary-light] selection:text-[--color-primary]">
+
+    <!-- Header / Navigation -->
+    <header class="glass sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="http://localhost" class="flex items-center gap-2 group">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold transition-colors" style="background-color:#1A5FBE">
+                            K
+                        </div>
+                        <span class="text-xl font-bold tracking-tight text-slate-900">
+                            kved<span style="color:#1A5FBE">2027</span>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a href="http://localhost/catalog" class="text-sm font-medium transition-colors text-blue-700">
+                        Каталог
+                    </a>
+                    <a href="http://localhost/info" class="text-sm font-medium transition-colors text-slate-700 hover:text-blue-700">
+                        Методологія
+                    </a>
+                    <a href="#" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-semibold rounded-xl text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]" style="background-color:#1A5FBE">
+                        Описати бізнес
+                    </a>
+                </nav>
+
+                <!-- Mobile menu button (placeholder for Alpine) -->
+                <div class="md:hidden flex items-center" x-data="{ open: false }">
+                    <button @click="open = !open" class="text-[--color-text-muted] hover:text-[--color-text]">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <!-- Mobile Menu (Alpine) -->
+                    <div x-show="open" @click.away="open = false" 
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 scale-95"
+                         x-transition:enter-end="opacity-100 scale-100"
+                         class="absolute top-16 right-4 w-48 py-2 bg-white rounded-2xl shadow-xl border border-[--color-border] z-50">
+                        <a href="http://localhost/catalog" class="block px-4 py-2 text-sm hover:bg-[--color-surface]">Каталог</a>
+                        <a href="http://localhost/info" class="block px-4 py-2 text-sm hover:bg-[--color-surface]">Методологія</a>
+                        <div class="border-t border-[--color-border] my-1"></div>
+                        <a href="#" class="block px-4 py-2 text-sm text-[--color-primary] font-bold">Описати бізнес</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-8">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    
+    <nav class="flex items-center gap-2 text-sm mb-8" style="color:#94A3B8">
+        <a href="http://localhost" class="hover:underline transition-colors" style="color:#5A6A7F">Головна</a>
+        <span>/</span>
+        <a href="http://localhost/catalog" class="hover:underline transition-colors" style="color:#5A6A7F">Каталог</a>
+        
+                                    <span>/</span>
+                                    <a href="http://localhost/catalog/section/1" class="hover:underline transition-colors" style="color:#5A6A7F">A — Agriculture</a>
+                                            <span>/</span>
+                                    <a href="http://localhost/catalog/division/2" class="hover:underline transition-colors" style="color:#5A6A7F">01</a>
+                                            <span>/</span>
+                                    <a href="http://localhost/catalog/group/3" class="hover:underline transition-colors" style="color:#5A6A7F">01.1</a>
+                                            <span>/</span>
+                                    <span class="font-mono font-semibold" style="color:#1A5FBE">01.11</span>
+                                        </nav>
+
+    
+    <div class="rounded-3xl border p-8 mb-6 shadow-sm" style="background:#FFFFFF; border-color:#E2E8F2">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+            <div>
+                
+                <span class="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4"
+                      style="background:#EEF4FF; color:#1A5FBE">
+                    NACE 2.1-UA
+                </span>
+
+                
+                <h1 class="text-4xl font-mono font-extrabold tracking-tight mb-2" style="color:#0F1923">
+                    01.11
+                </h1>
+
+                
+                <p class="text-xl font-semibold" style="color:#5A6A7F">Growing of cereals</p>
+            </div>
+
+            
+                    </div>
+
+        
+        <div class="flex items-center gap-3 mt-6 pt-6 border-t" style="border-color:#E2E8F2">
+            <button type="button" onclick="window.print()"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all hover:bg-gray-50"
+                    style="border-color:#E2E8F2; color:#5A6A7F">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+                </svg>
+                Надрукувати
+            </button>
+            <button type="button" onclick="navigator.clipboard?.writeText(window.location.href)"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border transition-all hover:bg-gray-50"
+                    style="border-color:#E2E8F2; color:#5A6A7F">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+                Поділитися
+            </button>
+        </div>
+    </div>
+
+    
+    
+    
+    <section class="grid gap-6 md:grid-cols-2 mt-6">
+    <div>
+        <h3 class="text-sm font-semibold text-emerald-700 uppercase tracking-wide mb-2">Включає</h3>
+
+                    <p class="text-sm text-slate-500">Немає спеціальних включень.</p>
+            </div>
+
+    <div>
+        <h3 class="text-sm font-semibold text-rose-700 uppercase tracking-wide mb-2">Не включає</h3>
+
+                    <p class="text-sm text-slate-500">Немає спеціальних виключень.</p>
+            </div>
+</section>
+
+
+
+    
+            <div class="mt-6 rounded-2xl border p-6" style="border-color:#E2E8F2; background:#FFFFFF">
+            <h2 class="text-base font-bold mb-3" style="color:#0F1923">Опис</h2>
+            <p class="text-sm leading-relaxed" style="color:#5A6A7F">Test class description</p>
+        </div>
+    
+    
+    <div class="mt-8 pt-6 border-t flex items-center justify-between gap-4" style="border-color:#E2E8F2">
+        <a href="http://localhost/catalog" class="inline-flex items-center gap-2 text-sm font-medium hover:underline" style="color:#5A6A7F">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Повернутись до каталогу
+        </a>
+        <a href="http://localhost" class="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl text-white transition-all hover:opacity-90" style="background-color:#1A5FBE">
+            Новий пошук
+        </a>
+    </div>
+</div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[--color-surface] border-t border-[--color-border] py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-[--color-primary] rounded-lg flex items-center justify-center text-white font-bold">
+                            K
+                        </div>
+                        <span class="text-xl font-bold tracking-tight">kved<span class="text-[--color-primary]">2027</span></span>
+                    </div>
+                    <p class="text-[--color-text-muted] max-w-sm mb-6">
+                        Професійний сервіс переходу з класифікатора КВЕД-2010 на NACE 2.1-UA. 
+                        Зрозуміло, швидко та безкоштовно для українського бізнесу.
+                    </p>
+                    <a href="https://ukrstat.gov.ua/metod_pob/naryadi/2023/n191.pdf" target="_blank" class="text-sm font-medium text-[--color-primary] hover:underline flex items-center gap-2">
+                        <span>Наказ Держстату № 191</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                    </a>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-6 text-[--color-text-hint]">Навігація</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="http://localhost" class="text-[--color-text-muted] hover:text-[--color-primary]">Головна</a></li>
+                        <li><a href="http://localhost/catalog" class="text-[--color-text-muted] hover:text-[--color-primary]">Каталог</a></li>
+                        <li><a href="http://localhost/info" class="text-[--color-text-muted] hover:text-[--color-primary]">Методологія</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm uppercase tracking-wider mb-6 text-[--color-text-hint]">Допомога</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li><a href="http://localhost/info" class="text-[--color-text-muted] hover:text-[--color-primary]">FAQ</a></li>
+                        <li><a href="#" class="text-[--color-text-muted] hover:text-[--color-primary]">Зворотний зв'язок</a></li>
+                        <li><a href="#" class="text-[--color-text-muted] hover:text-[--color-primary]">Політика конфіденційності</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-[--color-border] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-[--color-text-hint]">
+                    &copy; 2026 kved2027.ua. Всі права захищені.
+                </p>
+                <div class="flex gap-6">
+                    <!-- Placeholder icons or social links -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Livewire Scripts -->
+<script src="http://localhost/livewire-0b6a5be6/livewire.js?id=8f29b734"   data-csrf="BQPt8CZo4CtgqzWuIRCGAPzdVGM5ZQZSCo2wbZnz" data-module-url="http://localhost/livewire-0b6a5be6" data-update-uri="http://localhost/livewire-0b6a5be6/update" data-navigate-once="true"></script>
+</body>
+</html>
