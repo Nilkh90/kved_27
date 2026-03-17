@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Models\Kved2010;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
 
 class ImportKved2010 extends Command
 {
@@ -44,9 +43,10 @@ class ImportKved2010 extends Command
     {
         if ($this->option('fresh')) {
             $this->warn('Truncating existing kved_2010 data...');
-            DB::statement('SET FOREIGN_KEY_CHECKS=0');
+            // Disable FK checks — works for PostgreSQL
+            DB::statement('SET session_replication_role = replica');
             Kved2010::truncate();
-            DB::statement('SET FOREIGN_KEY_CHECKS=1');
+            DB::statement('SET session_replication_role = DEFAULT');
             $this->info('Truncated.');
         }
 
@@ -229,18 +229,11 @@ class ImportKved2010 extends Command
     private function fetchListRows(string $url): array
     {
         sleep(1); // Polite delay to avoid hammering the server
-        try {
-            $response = Http::timeout(15)->get($url);
-            if (!$response->successful()) {
-                $this->warn("  Could not fetch: $url (HTTP {$response->status()})");
-                return [];
-            }
-            $html = $response->body();
-        } catch (\Exception $e) {
-            $this->warn("  Error fetching $url: " . $e->getMessage());
+        $html = $this->httpGet($url);
+        if ($html === null) {
+            $this->warn("  Could not fetch: $url");
             return [];
         }
-
         return $this->parseListRows($html, $url);
     }
 
@@ -291,19 +284,8 @@ class ImportKved2010 extends Command
     private function fetchNodeDescription(string $href): ?string
     {
         sleep(1);
-        $url = self::BASE_URL . $href;
-
-        try {
-            $response = Http::timeout(15)->get($url);
-            if (!$response->successful()) {
-                return null;
-            }
-            $html = $response->body();
-        } catch (\Exception $e) {
-            return null;
-        }
-
-        return $this->parseDescription($html);
+        $html = $this->httpGet(self::BASE_URL . $href);
+        return $html ? $this->parseDescription($html) : null;
     }
 
     /**
@@ -311,18 +293,31 @@ class ImportKved2010 extends Command
      */
     private function fetchSectionDescription(string $letter): ?string
     {
-        $url = self::BASE_URL . "/KVED2010/SECT/KVED10_{$letter}.html";
         sleep(1);
+        $url = self::BASE_URL . "/KVED2010/SECT/KVED10_{$letter}.html";
+        $html = $this->httpGet($url);
+        return $html ? $this->parseDescription($html) : null;
+    }
 
-        try {
-            $response = Http::timeout(15)->get($url);
-            if (!$response->successful()) {
-                return null;
-            }
-            return $this->parseDescription($response->body());
-        } catch (\Exception $e) {
-            return null;
-        }
+    /**
+     * Simple HTTP GET using native PHP streams.
+     */
+    private function httpGet(string $url): ?string
+    {
+        $context = stream_context_create([
+            'http' => [
+                'timeout' => 15,
+                'user_agent' => 'Mozilla/5.0 (compatible; KVED-Importer/1.0)',
+                'follow_location' => true,
+            ],
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+            ],
+        ]);
+
+        $result = @file_get_contents($url, false, $context);
+        return $result !== false ? $result : null;
     }
 
     /**
