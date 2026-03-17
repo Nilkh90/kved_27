@@ -42,6 +42,26 @@ class ImportForm extends Component
         }
     }
 
+    public function syncFromUkrstat()
+    {
+        $this->statusType = 'success';
+        $this->statusMessage = 'Синхронізація з Укрстатом запущена. Це може зайняти кілька хвилин...';
+
+        try {
+            // Options for strict 4-level hierarchy
+            \Illuminate\Support\Facades\Artisan::call('kved:import', ['--fresh' => true]);
+            $output = \Illuminate\Support\Facades\Artisan::output();
+
+            $this->statusType = 'success';
+            $this->statusMessage = 'Синхронізація успішно завершена! Створено 4-рівневу структуру КВЭД.';
+            
+            // Optional: log output or send as message
+        } catch (\Exception $e) {
+            $this->statusType = 'error';
+            $this->statusMessage = 'Помилка синхронізації: ' . $e->getMessage();
+        }
+    }
+
     public function render()
     {
         return view('livewire.admin.import-form');

@@ -72,4 +72,49 @@
             </button>
         </div>
     </form>
+
+    <!-- Синхронізація з Укрстатом -->
+    <div class="mt-12 pt-8 border-t border-[--color-border]">
+        <h4 class="text-lg font-bold text-[--color-text] mb-2">Пряма синхронізація з Укрстатом</h4>
+        <p class="text-[--color-text-muted] mb-6 text-sm">
+            Ця функція автоматично сканує сайт Укрстату, створює 4-рівневу іерархію (Секції, Розділи, Групи, Класи) 
+            та наповнює базу офіційними описами КВЕД-2010.
+        </p>
+
+        <div class="bg-[--color-warning-bg] border border-[--color-warning] p-4 rounded-lg mb-6">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-[--color-warning]" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <p class="text-xs text-[--color-warning]">
+                        <strong>Увага!</strong> Режим "Strict 4-level" очистить існуючі дані КВЕД-2010 перед імпортом для забезпечення цілісності ієрархії.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-between">
+            <div wire:loading wire:target="syncFromUkrstat" class="flex items-center text-sm text-[--color-info]">
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-[--color-info]" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Йде сканування Укрстату... Це може зайняти 1-2 хвилини.
+            </div>
+            
+            <button 
+                type="button" 
+                wire:click="syncFromUkrstat" 
+                wire:loading.attr="disabled"
+                wire:target="syncFromUkrstat"
+                class="bg-white hover:bg-gray-50 text-[--color-primary] border border-[--color-primary] font-medium py-2 px-6 rounded-md shadow-sm transition disabled:opacity-50"
+            >
+                Запустити синхронізацію (4 рівні)
+            </button>
+        </div>
+    </div>
 </div>
+
