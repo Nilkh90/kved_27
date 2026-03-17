@@ -53,10 +53,17 @@ class DatabaseSeeder extends Seeder
             'parent_id' => $kved62->id,
         ]);
 
+        $naceJ = Nace2027::create([
+            'code' => 'J',
+            'title' => 'Information and Communication',
+            'level' => 'SECTION',
+        ]);
+
         $nace62 = Nace2027::create([
             'code' => '62',
             'title' => 'Комп’ютерне програмування, консультування та пов’язані послуги (NACE 2.1-UA)',
             'level' => 'DIVISION',
+            'parent_id' => $naceJ->id,
         ]);
 
         $nace6201 = Nace2027::create([
