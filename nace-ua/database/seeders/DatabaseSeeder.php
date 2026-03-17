@@ -66,25 +66,32 @@ class DatabaseSeeder extends Seeder
             'parent_id' => $naceJ->id,
         ]);
 
+        $nace62_0 = Nace2027::create([
+            'code' => '62.0',
+            'title' => 'Computer programming, consultancy and related activities',
+            'level' => 'GROUP',
+            'parent_id' => $nace62->id,
+        ]);
+
         $nace6201 = Nace2027::create([
             'code' => '62.01',
             'title' => 'Розроблення програмного забезпечення',
             'level' => 'CLASS',
-            'parent_id' => $nace62->id,
+            'parent_id' => $nace62_0->id,
         ]);
 
         $nace6202 = Nace2027::create([
             'code' => '62.02',
             'title' => 'Консультування у сфері інформаційних технологій',
             'level' => 'CLASS',
-            'parent_id' => $nace62->id,
+            'parent_id' => $nace62_0->id,
         ]);
 
         $nace6203 = Nace2027::create([
             'code' => '62.03',
             'title' => 'Управління комп’ютерним устаткованням (аутсорсинг ІТ-інфраструктури)',
             'level' => 'CLASS',
-            'parent_id' => $nace62->id,
+            'parent_id' => $nace62_0->id,
         ]);
 
         // Простейшие примеры маппингов: 1_TO_1 и 1_TO_N.

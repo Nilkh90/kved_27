@@ -75,7 +75,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @forelse($children as $child)
-                    <a href="{{ route('catalog.' . $childLevel, $child->id) }}" 
+                    <a href="{{ route('catalog.' . strtolower($child->level), $child->id) }}" 
                        class="group block p-6 rounded-2xl border transition-all hover:shadow-lg hover:border-blue-300 hover:scale-[1.01]"
                        style="background:#FFFFFF; border-color:#E2E8F2">
                         <div class="flex items-start gap-5">
