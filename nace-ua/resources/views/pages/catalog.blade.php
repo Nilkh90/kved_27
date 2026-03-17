@@ -21,7 +21,7 @@
     </div>
 
     {{-- Two-column Desktop Layout --}}
-    <div class="lg:grid lg:grid-cols-[360px_1fr] gap-8">
+    <div class="lg:grid lg:grid-cols-[520px_1fr] gap-8">
         {{-- Left: Tree --}}
         <div>
             @livewire('classifier-tree', ['standard' => $standard])
