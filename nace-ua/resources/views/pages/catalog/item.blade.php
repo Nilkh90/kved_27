@@ -32,15 +32,14 @@
                 </span>
                 
                 <div class="flex flex-col md:flex-row md:items-start justify-between gap-6">
-                    <div class="max-w-3xl">
-                        <h1 class="text-3xl md:text-4xl font-bold mb-4" style="color:#0F1923">
+                    <div class="max-w-4xl">
+                        <h1 class="text-3xl md:text-4xl font-bold mb-6" style="color:#0F1923">
                             <span class="font-mono text-blue-600">{{ $item->code }}</span> — {{ $item->title }}
                         </h1>
                         
                         @if($item->description)
-                            <div class="mt-6 p-6 rounded-2xl bg-slate-50 border border-slate-100">
-                                <h2 class="text-xs font-bold uppercase tracking-wider mb-2 text-slate-400">Опис категорії</h2>
-                                <p class="text-lg leading-relaxed text-slate-600 italic">
+                            <div class="mt-4 prose prose-slate prose-lg max-w-none">
+                                <p class="text-xl leading-relaxed text-slate-600 italic font-medium border-l-4 border-blue-500 pl-6 py-2 bg-slate-50 rounded-r-2xl">
                                     {{ $item->description }}
                                 </p>
                             </div>

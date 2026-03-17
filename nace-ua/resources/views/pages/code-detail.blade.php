@@ -45,7 +45,16 @@
                 </h1>
 
                 {{-- Title --}}
-                <p class="text-xl font-semibold" style="color:#5A6A7F">{{ $code->title }}</p>
+                <p class="text-xl font-semibold mb-6" style="color:#5A6A7F">{{ $code->title }}</p>
+
+                {{-- Description --}}
+                @if (!empty($code->description))
+                    <div class="mt-4 prose prose-slate prose-lg max-w-none">
+                        <p class="text-lg leading-relaxed text-slate-600 italic font-medium border-l-4 border-blue-500 pl-6 py-2 bg-slate-50 rounded-r-2xl">
+                            {{ $code->description }}
+                        </p>
+                    </div>
+                @endif
             </div>
 
             {{-- Status Badge --}}
@@ -97,13 +106,6 @@
         :excludes="$code->excludes ?? []"
     />
 
-    {{-- Description --}}
-    @if (!empty($code->description))
-        <div class="mt-6 rounded-2xl border p-6" style="border-color:#E2E8F2; background:#FFFFFF">
-            <h2 class="text-base font-bold mb-3" style="color:#0F1923">Опис</h2>
-            <p class="text-sm leading-relaxed" style="color:#5A6A7F">{{ $code->description }}</p>
-        </div>
-    @endif
 
     {{-- Navigation Links --}}
     <div class="mt-8 pt-6 border-t flex items-center justify-between gap-4" style="border-color:#E2E8F2">
