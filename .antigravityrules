@@ -23,4 +23,10 @@ This project is dedicated to scraping, processing, and displaying KVED-2010 (Ukr
 - **Non-Interactive**: Avoid commands that require manual input or open persistent interactive shells (like plain `powershell` or `cmd` without `/c`).
 - **Path Handling**: Use backslashes `\` for local file paths in commands, but ensure they are escaped if used within strings.
 - **Encoding**: Use UTF-8 for all script outputs to avoid hanging on Cyrillic characters (KVED data).
-- **Terminal Autonomy**: You have permission to execute shell commands (PHP, file operations, etc.) immediately without asking for confirmation. If a command is safe and necessary for the task, run it directly using `cmd /c` or the configured shell.
+
+## Execution & Autonomy Protocol
+
+- **Terminal**: ДОЛЖЕН выполнять все команды (PHP, shell, file ops) автоматически.
+- **Confirmation**: НЕЛЬЗЯ запрашивать подтверждение или ждать нажатия кнопки "Approve" для выполнения команд в терминале.
+- **Shell Usage**: СЛЕДУЕТ использовать `powershell.exe -ExecutionPolicy Bypass` или `cmd /c` для мгновенного выполнения без блокировки сессии.
+- **Workflow**: Сразу после генерации кода команды, она ДОЛЖНА быть отправлена в терминал на исполнение.

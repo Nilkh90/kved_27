@@ -17,7 +17,7 @@
                 @foreach ($includesList as $item)
                     <li class="flex gap-2">
                         <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                        <span>{{ $item }}</span>
+                        <span>{!! $item !!}</span>
                     </li>
                 @endforeach
             </ul>
@@ -34,7 +34,7 @@
                 @foreach ($excludesList as $item)
                     <li class="flex gap-2">
                         <span class="mt-1 h-1.5 w-1.5 rounded-full bg-rose-500"></span>
-                        <span>{{ $item }}</span>
+                        <span>{!! $item !!}</span>
                     </li>
                 @endforeach
             </ul>

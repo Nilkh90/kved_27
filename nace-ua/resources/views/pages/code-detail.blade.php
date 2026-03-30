@@ -72,9 +72,9 @@
                 {{-- Description --}}
                 @if (!empty($code->description))
                     <div class="mt-4 prose prose-slate prose-lg max-w-none">
-                        <p class="text-lg leading-relaxed text-slate-600 italic font-medium border-l-4 border-blue-500 pl-6 py-2 bg-slate-50 rounded-r-2xl">
-                            {{ strip_tags($code->description) }}
-                        </p>
+                        <div class="text-lg leading-relaxed text-slate-600 italic font-medium border-l-4 border-blue-500 pl-6 py-2 bg-slate-50 rounded-r-2xl">
+                            {!! $code->description !!}
+                        </div>
                     </div>
                 @endif
             </div>
