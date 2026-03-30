@@ -33,8 +33,12 @@ class ImportKvedJson extends Command
         }
 
         $this->warn("Truncating kved_2010 table...");
-        // Use TRUNCATE CASCADE to handle foreign keys if necessary
-        DB::statement('TRUNCATE kved_2010 RESTART IDENTITY CASCADE');
+        if (DB::getDriverName() === 'sqlite') {
+            DB::statement('DELETE FROM kved_2010');
+            DB::statement('DELETE FROM sqlite_sequence WHERE name="kved_2010"');
+        } else {
+            DB::statement('TRUNCATE kved_2010 RESTART IDENTITY CASCADE');
+        }
 
         $this->info("Starting recursive import...");
         
@@ -58,21 +62,29 @@ class ImportKvedJson extends Command
     {
         $descriptionRaw = $data['description'] ?? null;
         $includes = [];
+        $includesAlso = [];
         $excludes = [];
         $cleanDescription = null;
 
         if ($descriptionRaw) {
-            // Extract includes/excludes more robustly
-            if (preg_match('/<em class="Zp1">.*?<\/em>(.*?)(?=<em class="Zp3">|$)/si', $descriptionRaw, $matches)) {
+            // Extract includes (Zp1), includes_also (Zp2), and excludes (Zp3)
+            // Zp1 -> Zp2 or Zp3 or end
+            if (preg_match('/<em class="Zp1">.*?<\/em>(.*?)(?=<em class="Zp[23]">|$)/si', $descriptionRaw, $matches)) {
                 $includes = $this->parseList($matches[1]);
             }
             
-            if (preg_match('/<em class="Zp3">.*?<\/em>(.*?)(?=<em class="Zp1">|$)/si', $descriptionRaw, $matches)) {
+            // Zp2 -> Zp3 or Zp1 or end
+            if (preg_match('/<em class="Zp2">.*?<\/em>(.*?)(?=<em class="Zp[13]">|$)/si', $descriptionRaw, $matches)) {
+                $includesAlso = $this->parseList($matches[1]);
+            }
+            
+            // Zp3 -> Zp1 or Zp2 or end
+            if (preg_match('/<em class="Zp3">.*?<\/em>(.*?)(?=<em class="Zp[12]">|$)/si', $descriptionRaw, $matches)) {
                 $excludes = $this->parseList($matches[1]);
             }
             
             // Clean description: remove the include/exclude blocks and keep structure/links
-            $cleanDescription = preg_replace('/<em class="Zp[13]">.*?<\/em>.*?(?=<em class="Zp[13]">|$)/si', '', $descriptionRaw);
+            $cleanDescription = preg_replace('/<em class="Zp[123]">.*?<\/em>.*?(?=<em class="Zp[123]">|$)/si', '', $descriptionRaw);
             $cleanDescription = strip_tags($cleanDescription, '<a><br><p><b><strong><i><em>');
             $cleanDescription = trim(preg_replace('/\s+/', ' ', $cleanDescription));
             
@@ -89,6 +101,7 @@ class ImportKvedJson extends Command
                 'parent_id' => $parentId,
                 'description' => $cleanDescription,
                 'includes' => $includes,
+                'includes_also' => $includesAlso,
                 'excludes' => $excludes,
             ]
         );

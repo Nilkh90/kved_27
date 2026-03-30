@@ -125,6 +125,7 @@
     <x-includes-excludes
         class="mt-6"
         :includes="$code->includes ?? []"
+        :includes-also="$code->includes_also ?? []"
         :excludes="$code->excludes ?? []"
     />
 
