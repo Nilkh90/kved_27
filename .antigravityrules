@@ -1,0 +1,26 @@
+# Antigravity Rules for kved_27
+
+## Project Overview
+
+This project is dedicated to scraping, processing, and displaying KVED-2010 (Ukrainian Classification of Economic Activities) data.
+
+## Tech Stack
+
+- **Backend**: PHP
+- **Frontend**: HTML/Vanilla CSS/JavaScript (as per general instructions)
+- **Data**: JSON (for scraped data)
+
+## Guidelines
+
+- **SEO-Friendly URLs**: Use hierarchical, code-based URLs (e.g., `/catalog/section-{code}/`, `/catalog/{division_code}/`). Replace dots with hyphens in URLs.
+- **Data Scraping**: Maintain scripts like `scrape_kved_wayback.php` for reliability. Ensure clean data extraction without HTML artifacts.
+- **Hierarchy**: Strictly follow the KVED hierarchy: Section -> Division -> Group -> Class.
+- **Aesthetics**: Keep the frontend modern, premium, and responsive.
+
+## Windows Terminal Compatibility
+
+- **Shell Execution**: Always use `cmd.exe /c` for running shell commands.
+- **Non-Interactive**: Avoid commands that require manual input or open persistent interactive shells (like plain `powershell` or `cmd` without `/c`).
+- **Path Handling**: Use backslashes `\` for local file paths in commands, but ensure they are escaped if used within strings.
+- **Encoding**: Use UTF-8 for all script outputs to avoid hanging on Cyrillic characters (KVED data).
+- **Terminal Autonomy**: You have permission to execute shell commands (PHP, file operations, etc.) immediately without asking for confirmation. If a command is safe and necessary for the task, run it directly using `cmd /c` or the configured shell.

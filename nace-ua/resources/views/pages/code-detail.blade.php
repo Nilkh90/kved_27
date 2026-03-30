@@ -2,7 +2,7 @@
 
 @php
     $title = $code->code . ' — ' . $code->title . ' | kved2027';
-    $description = \Illuminate\Support\Str::limit($code->description ?? 'Перегляньте відповідність коду ' . $code->code . ' між класифікаторами КВЕД-2010 та NACE 2.1-UA.', 155);
+    $description = \Illuminate\Support\Str::limit($code->description ? strip_tags($code->description) : 'Перегляньте відповідність коду ' . $code->code . ' між класифікаторами КВЕД-2010 та NACE 2.1-UA.', 155);
 @endphp
 
 @section('content')
@@ -73,7 +73,7 @@
                 @if (!empty($code->description))
                     <div class="mt-4 prose prose-slate prose-lg max-w-none">
                         <p class="text-lg leading-relaxed text-slate-600 italic font-medium border-l-4 border-blue-500 pl-6 py-2 bg-slate-50 rounded-r-2xl">
-                            {{ $code->description }}
+                            {{ strip_tags($code->description) }}
                         </p>
                     </div>
                 @endif

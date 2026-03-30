@@ -42,7 +42,7 @@
                     </h3>
                     @if($section->description)
                         <p class="text-sm leading-relaxed line-clamp-3" style="color:#5A6A7F">
-                            {{ $section->description }}
+                            {{ strip_tags($section->description) }}
                         </p>
                     @endif
                     

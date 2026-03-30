@@ -9,7 +9,7 @@ class CatalogController extends Controller
 {
     public function index(): View
     {
-        $sections = \App\Models\Nace2027::where('level', 'SECTION')->orderBy('code')->get();
+        $sections = \App\Models\Kved2010::where('level', 'SECTION')->orderBy('code')->get();
 
         return view('pages.catalog', [
             'standard' => 'nace',
@@ -20,7 +20,7 @@ class CatalogController extends Controller
     public function section(string $code): View
     {
         $code = strtoupper($code);
-        $section = \App\Models\Nace2027::where('level', 'SECTION')->where('code', $code)->firstOrFail();
+        $section = \App\Models\Kved2010::where('level', 'SECTION')->where('code', $code)->firstOrFail();
         $divisions = $section->children()->orderBy('code')->get();
 
         return view('pages.catalog.item', [
@@ -34,7 +34,7 @@ class CatalogController extends Controller
 
     public function division(string $division_code): View
     {
-        $division = \App\Models\Nace2027::where('level', 'DIVISION')
+        $division = \App\Models\Kved2010::where('level', 'DIVISION')
             ->where('code', $division_code)
             ->with('parent')
             ->firstOrFail();
@@ -54,7 +54,7 @@ class CatalogController extends Controller
     {
         $group_code_normalized = str_replace('-', '.', $group_code);
         
-        $group = \App\Models\Nace2027::where('level', 'GROUP')
+        $group = \App\Models\Kved2010::where('level', 'GROUP')
             ->where('code', $group_code_normalized)
             ->with('parent')
             ->firstOrFail();
@@ -80,7 +80,7 @@ class CatalogController extends Controller
         $group_code_normalized = str_replace('-', '.', $group_code);
         $class_code_normalized = str_replace('-', '.', $class_code);
 
-        $class = \App\Models\Nace2027::where('level', 'CLASS')
+        $class = \App\Models\Kved2010::where('level', 'CLASS')
             ->where('code', $class_code_normalized)
             ->with('parent.parent')
             ->firstOrFail();
@@ -134,8 +134,15 @@ class CatalogController extends Controller
 
     public function byStandard(string $standard, Request $request): View
     {
+        if ($standard === 'kved') {
+            $sections = \App\Models\Kved2010::where('level', 'SECTION')->orderBy('code')->get();
+        } else {
+            $sections = \App\Models\Kved2010::where('level', 'SECTION')->orderBy('code')->get();
+        }
+
         return view('pages.catalog', [
             'standard' => $standard,
+            'sections' => $sections,
         ]);
     }
 }

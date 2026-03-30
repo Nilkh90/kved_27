@@ -59,5 +59,13 @@ class Kved2010 extends Model
     {
         return $query->where('level', 'CLASS');
     }
+
+    /**
+     * Get url-safe slug by converting dots to dashes
+     */
+    public function getSlugAttribute()
+    {
+        return str_replace('.', '-', $this->code);
+    }
 }
 

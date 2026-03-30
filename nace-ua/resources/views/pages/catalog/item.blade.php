@@ -61,7 +61,7 @@
                         @if($item->description)
                             <div class="mt-4 prose prose-slate prose-lg max-w-none">
                                 <p class="text-xl leading-relaxed text-slate-600 italic font-medium border-l-4 border-blue-500 pl-6 py-2 bg-slate-50 rounded-r-2xl">
-                                    {{ $item->description }}
+                                    {{ strip_tags($item->description) }}
                                 </p>
                             </div>
                         @endif
@@ -119,7 +119,7 @@
                                 </h3>
                                 @if($child->description)
                                     <p class="text-sm line-clamp-2 text-slate-500 leading-relaxed">
-                                        {{ Str::limit($child->description, 130) }}
+                                        {{ Str::limit(strip_tags($child->description), 130) }}
                                     </p>
                                 @endif
                             </div>
