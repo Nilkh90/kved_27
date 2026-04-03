@@ -1,4 +1,5 @@
-<div class="relative" x-data="{ open: false }" @click.away="open = false">
+<div>
+    <div class="relative" x-data="{ open: false }" @click.away="open = false">
     {{-- Search Input --}}
     <div class="relative">
         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
@@ -75,4 +76,5 @@
             </p>
         </div>
     @endif
+</div>
 </div>
