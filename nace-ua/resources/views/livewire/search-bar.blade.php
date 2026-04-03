@@ -1,5 +1,4 @@
-<div>
-    <div class="relative" x-data="{ open: false }" @click.away="open = false">
+<div class="relative" x-data="{ open: false }" @click.away="open = false">
     {{-- Search Input --}}
     <div class="relative">
         <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
@@ -10,7 +9,7 @@
 
         <input
             type="search"
-            wire:model.live="query"
+            wire:model.live.debounce.150ms="query"
             @focus="open = true"
             placeholder="Введіть код або опис діяльності..."
             autocomplete="off"
@@ -76,5 +75,4 @@
             </p>
         </div>
     @endif
-</div>
 </div>

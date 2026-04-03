@@ -19,6 +19,8 @@ class SearchBar extends Component
 
     public function updatedQuery(string $value): void
     {
+        \Illuminate\Support\Facades\Log::debug('SearchBar updatedQuery: ' . $value);
+
         if (trim($value) === '') {
             $this->results = [];
 
