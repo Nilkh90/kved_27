@@ -89,38 +89,59 @@ class SearchService
      */
     private function searchPgsql(string $query, int $limit): array
     {
+        $normalizedCode = preg_replace('/[^0-9]/', '', $query);
+        $likeQuery = $query . '%';
+        $normalizedLike = $normalizedCode !== '' ? $normalizedCode . '%' : null;
         $tsQuery = "plainto_tsquery('simple', ?)";
 
         $sql = "
             SELECT code, title, standard FROM (
-                SELECT code, title, 'kved' AS standard,
-                       ts_rank(search_vector, {$tsQuery}) AS rank,
-                       1 AS priority
-                FROM kved_2010
-                WHERE search_vector @@ {$tsQuery}
+                -- Priority 0: Exact or prefix match by code (e.g. '69.10')
+                SELECT code, title, 'kved' AS standard, 0 AS priority, 1.0 AS rank 
+                FROM kved_2010 WHERE code ILIKE ?
+                UNION ALL
+                SELECT code, title, 'nace' AS standard, 0 AS priority, 1.0 AS rank 
+                FROM nace_2027 WHERE code ILIKE ?
 
                 UNION ALL
-
-                SELECT code, title, 'nace' AS standard,
-                       ts_rank(search_vector, {$tsQuery}) AS rank,
-                       2 AS priority
-                FROM nace_2027
-                WHERE search_vector @@ {$tsQuery}
+                -- Priority 1: Search by code without dots (e.g. '6910' matches '69.10')
+                SELECT code, title, 'kved' AS standard, 1 AS priority, 0.9 AS rank 
+                FROM kved_2010 WHERE REPLACE(code, '.', '') ILIKE ?
+                UNION ALL
+                SELECT code, title, 'nace' AS standard, 1 AS priority, 0.9 AS rank 
+                FROM nace_2027 WHERE REPLACE(code, '.', '') ILIKE ?
 
                 UNION ALL
+                -- Priority 2: Full Text Search by title and description
+                SELECT code, title, 'kved' AS standard, 2 AS priority, ts_rank(search_vector, {$tsQuery}) AS rank 
+                FROM kved_2010 WHERE search_vector @@ {$tsQuery}
+                UNION ALL
+                SELECT code, title, 'nace' AS standard, 2 AS priority, ts_rank(search_vector, {$tsQuery}) AS rank 
+                FROM nace_2027 WHERE search_vector @@ {$tsQuery}
 
-                SELECT nace_2027.code, nace_2027.title, 'nace' AS standard,
-                       0.0 AS rank,
-                       3 AS priority
-                FROM tags
-                JOIN nace_2027 ON nace_2027.id = tags.nace_id
-                WHERE tags.tag ILIKE ?
+                UNION ALL
+                -- Priority 3: Tags search (synonyms)
+                SELECT n.code, n.title, 'nace' AS standard, 3 AS priority, 0.5 AS rank 
+                FROM tags t 
+                JOIN nace_2027 n ON n.id = t.nace_id 
+                WHERE t.tag ILIKE ?
             ) u
-            ORDER BY priority, rank DESC, code
+            GROUP BY code, title, standard
+            ORDER BY MIN(priority), MAX(rank) DESC, code
             LIMIT {$limit}
         ";
 
-        $rows = DB::select($sql, [$query, $query, $query, $query, '%' . $query . '%']);
+        $params = [
+            $likeQuery, $likeQuery,             // Priority 0
+            $normalizedLike, $normalizedLike,   // Priority 1
+            $query, $query, $query, $query,     // Priority 2 (FTS takes 4 params: 2 for rank, 2 for where)
+            '%' . $query . '%'                  // Priority 3
+        ];
+
+        // If no normalized code (no digits), we can skip Prio 1 params by passing nulls or adjusting query
+        // But the SQL REPLACE(...) ILIKE NULL will just return nothing, so it's safe.
+
+        $rows = DB::select($sql, $params);
 
         return collect($rows)
             ->map(fn ($row) => [
