@@ -24,19 +24,24 @@ class SearchService
         }
 
         $like = '%' . $query . '%';
+        $normalizedCode = preg_replace('/[^a-zA-Z0-9]/', '', $query);
+        $normalizedLike = $normalizedCode !== '' ? '%' . $normalizedCode . '%' : null;
 
         /** @var \Illuminate\Support\Collection<int, array{code:string,title:string,standard:string}> $results */
         $results = DB::query()
-            ->fromSub(function ($sub) use ($like): void {
+            ->fromSub(function ($sub) use ($like, $normalizedLike): void {
                 $sub
                     // KVED-2010
                     ->selectRaw(
                         "id, code, title, 'kved' as standard, 1 as priority"
                     )
                     ->from('kved_2010')
-                    ->where(function ($q) use ($like): void {
+                    ->where(function ($q) use ($like, $normalizedLike): void {
                         $q->where('code', 'like', $like)
                             ->orWhere('title', 'like', $like);
+                        if ($normalizedLike) {
+                            $q->orWhere(DB::raw("REPLACE(REPLACE(code, '.', ''), '-', '')"), 'like', $normalizedLike);
+                        }
                     })
 
                     ->unionAll(
@@ -45,9 +50,12 @@ class SearchService
                             ->selectRaw(
                                 "id, code, title, 'nace' as standard, 2 as priority"
                             )
-                            ->where(function ($q) use ($like): void {
+                            ->where(function ($q) use ($like, $normalizedLike): void {
                                 $q->where('code', 'like', $like)
                                     ->orWhere('title', 'like', $like);
+                                if ($normalizedLike) {
+                                    $q->orWhere(DB::raw("REPLACE(REPLACE(code, '.', ''), '-', '')"), 'like', $normalizedLike);
+                                }
                             })
                     )
 

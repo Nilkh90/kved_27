@@ -15,12 +15,14 @@ class Nace2027 extends Model
         'parent_id',
         'description',
         'includes',
-        'excludes'
+        'excludes',
+        'includes_also'
     ];
 
     protected $casts = [
         'includes' => 'array',
         'excludes' => 'array',
+        'includes_also' => 'array',
     ];
 
     /**
