@@ -1,8 +1,8 @@
-@extends('layouts.app')
-
 @php
-    $title = $code->code . ' — ' . $code->title . ' | kved2027';
-    $description = \Illuminate\Support\Str::limit($code->description ? strip_tags($code->description) : 'Перегляньте відповідність коду ' . $code->code . ' між класифікаторами КВЕД-2010 та NACE 2.1-UA.', 155);
+    $isNace = $standard === 'nace';
+    $displayName = $isNace ? 'NACE 2.1-UA (2027)' : 'КВЕД-2010';
+    $title = $code->code . ' — ' . $code->title . ' | ' . $displayName . ' | kved2027';
+    $description = \Illuminate\Support\Str::limit($code->description ? strip_tags($code->description) : 'Перегляньте деталі коду ' . $code->code . ' у класифікаторі ' . $displayName, 155);
 @endphp
 
 @section('content')
@@ -17,35 +17,28 @@
                 </a>
                 <meta itemprop="position" content="1" />
             </li>
-            <span>/</span>
-            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="{{ route('catalog') }}" class="hover:underline transition-colors" style="color:#5A6A7F">
-                    <span itemprop="name">Каталог</span>
-                </a>
-                <meta itemprop="position" content="2" />
-            </li>
             
             @if(isset($breadcrumbs) && count($breadcrumbs) > 0)
                 @foreach($breadcrumbs as $bc)
                     <span>/</span>
                     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
                         @if($bc['active'])
-                            <span itemprop="name" class="font-mono font-semibold" style="color:#1A5FBE">{{ $bc['title'] }}</span>
+                            <span itemprop="name" class="font-mono font-semibold {{ $isNace ? 'text-emerald-600' : 'text-blue-600' }}">{{ $bc['title'] }}</span>
                             <link itemprop="item" href="{{ $bc['route'] }}" />
                         @else
                             <a itemprop="item" href="{{ $bc['route'] }}" class="hover:underline transition-colors" style="color:#5A6A7F">
                                 <span itemprop="name">{{ $bc['title'] }}</span>
                             </a>
                         @endif
-                        <meta itemprop="position" content="{{ $loop->iteration + 2 }}" />
+                        <meta itemprop="position" content="{{ $loop->iteration + 1 }}" />
                     </li>
                 @endforeach
             @else
                 <span>/</span>
                 <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                    <span itemprop="name" class="font-mono font-semibold" style="color:#1A5FBE">{{ $code->code }}</span>
+                    <span itemprop="name" class="font-mono font-semibold {{ $isNace ? 'text-emerald-600' : 'text-blue-600' }}">{{ $code->code }}</span>
                     <link itemprop="item" href="{{ url()->current() }}" />
-                    <meta itemprop="position" content="3" />
+                    <meta itemprop="position" content="2" />
                 </li>
             @endif
         </ol>
@@ -56,9 +49,8 @@
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
             <div>
                 {{-- Standard Badge --}}
-                <span class="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4"
-                      style="background:#EEF4FF; color:#1A5FBE">
-                    {{ strtoupper($standard === 'nace' ? 'NACE 2.1-UA' : 'КВЕД-2010') }}
+                <span class="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 {{ $isNace ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800' }}">
+                    {{ strtoupper($isNace ? 'NACE 2.1-UA (2027)' : 'КВЕД-2010') }}
                 </span>
 
                 {{-- Code --}}
@@ -72,7 +64,7 @@
                 {{-- Description --}}
                 @if (!empty($code->description))
                     <div class="mt-4 prose prose-slate prose-lg max-w-none">
-                        <div class="text-lg leading-relaxed text-slate-600 italic font-medium border-l-4 border-blue-500 pl-6 py-2 bg-slate-50 rounded-r-2xl">
+                        <div class="text-lg leading-relaxed text-slate-600 italic font-medium border-l-4 {{ $isNace ? 'border-emerald-500' : 'border-blue-500' }} pl-6 py-2 bg-slate-50 rounded-r-2xl">
                             {!! $code->description !!}
                         </div>
                     </div>
@@ -132,15 +124,16 @@
 
     {{-- Navigation Links --}}
     <div class="mt-8 pt-6 border-t flex items-center justify-between gap-4" style="border-color:#E2E8F2">
-        <a href="{{ route('catalog') }}" class="inline-flex items-center gap-2 text-sm font-medium hover:underline" style="color:#5A6A7F">
+        <a href="{{ route('catalog.index', ['standard' => $standard]) }}" class="inline-flex items-center gap-2 text-sm font-medium hover:underline" style="color:#5A6A7F">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
             Повернутись до каталогу
         </a>
-        <a href="{{ route('home') }}" class="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl text-white transition-all hover:opacity-90" style="background-color:#1A5FBE">
+        <a href="{{ route('home') }}" class="inline-flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl text-white transition-all hover:opacity-90" style="background-color: var(--color-primary)">
             Новий пошук
         </a>
     </div>
 </div>
 @endsection
+

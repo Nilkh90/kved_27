@@ -58,4 +58,10 @@
     .glass {
         @apply bg-white/80 backdrop-blur-md border-b border-[--color-border];
     }
+
+    .theme-nace {
+        --color-primary: #10B981; /* Emerald 500 */
+        --color-primary-dark: #059669; /* Emerald 600 */
+        --color-primary-light: #ECFDF5; /* Emerald 50 */
+    }
 }

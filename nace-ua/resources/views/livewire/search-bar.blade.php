@@ -36,9 +36,12 @@
                            class="flex items-center gap-4 px-4 py-3 hover:bg-blue-50 transition-colors"
                            @click="open = false">
 
+                            @php
+                                $itemIsNace = ($item['standard'] ?? 'kved') === 'nace';
+                            @endphp
                             {{-- Code badge --}}
                             <span class="font-mono text-sm font-bold px-2 py-1 rounded-lg flex-shrink-0"
-                                  style="background:#EEF4FF; color:#1A5FBE">
+                                  style="background:{{ $itemIsNace ? '#ECFDF5' : '#EEF4FF' }}; color:{{ $itemIsNace ? '#059669' : '#1A5FBE' }}">
                                 {{ $item['code'] ?? '' }}
                             </span>
 
@@ -49,7 +52,7 @@
 
                             {{-- Standard tag --}}
                             <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded flex-shrink-0"
-                                  style="background:#F1F5F9; color:#5A6A7F">
+                                  style="background:{{ $itemIsNace ? '#D1FAE5' : '#F1F5F9' }}; color:{{ $itemIsNace ? '#065F46' : '#5A6A7F' }}">
                                 {{ strtoupper($item['standard'] ?? 'KVED') }}
                             </span>
                         </a>

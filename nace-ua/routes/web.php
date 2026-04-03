@@ -10,13 +10,19 @@ use Illuminate\Support\Facades\Route;
 
 // Публичные страницы
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/catalog', [CatalogController::class, 'index'])->name('catalog');
-Route::get('/catalog/section-{code}', [CatalogController::class, 'section'])->name('catalog.section');
-Route::get('/catalog/{division_code}', [CatalogController::class, 'division'])->name('catalog.division')->where('division_code', '[0-9]+');
-Route::get('/catalog/{division_code}/{group_code}', [CatalogController::class, 'group'])->name('catalog.group');
-Route::get('/catalog/{division_code}/{group_code}/{class_code}', [CatalogController::class, 'class'])->name('catalog.class');
+// Каталог
+Route::get('/catalog', function () {
+    return redirect()->route('catalog.index', ['standard' => 'kved']);
+})->name('catalog');
 
-Route::get('/catalog/{standard}', [CatalogController::class, 'byStandard'])->where('standard', 'kved|nace'); // kved|nace
+Route::prefix('catalog/{standard}')->where(['standard' => 'kved|nace'])->group(function () {
+    Route::get('/', [CatalogController::class, 'index'])->name('catalog.index');
+    Route::get('/section-{code}', [CatalogController::class, 'section'])->name('catalog.section');
+    Route::get('/{division_code}', [CatalogController::class, 'division'])->name('catalog.division')->where('division_code', '[0-9]+');
+    Route::get('/{division_code}/{group_code}', [CatalogController::class, 'group'])->name('catalog.group');
+    Route::get('/{division_code}/{group_code}/{class_code}', [CatalogController::class, 'class'])->name('catalog.class');
+});
+
 Route::get('/code/{standard}/{code}', [CodeController::class, 'show'])
     ->middleware('cacheResponse:1440')
     ->name('code.show');

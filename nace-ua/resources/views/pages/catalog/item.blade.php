@@ -1,8 +1,10 @@
 @extends('layouts.app')
 
 @php
-    $title = $item->code . ' ' . $item->title . ' | kved2027';
-    $description = 'Каталог класифікатора NACE 2.1-UA. ' . $item->title;
+    $isNace = $standard === 'nace';
+    $displayName = $isNace ? 'NACE 2.1-UA (2027)' : 'КВЕД-2010';
+    $title = $item->code . ' ' . $item->title . ' | ' . $displayName . ' | kved2027';
+    $description = 'Каталог класифікатора ' . $displayName . '. ' . $item->title;
 @endphp
 
 @section('content')
@@ -15,13 +17,6 @@
                     <span itemprop="name">Головна</span>
                 </a>
                 <meta itemprop="position" content="1" />
-            </li>
-            <span>/</span>
-            <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                <a itemprop="item" href="{{ route('catalog') }}" class="hover:underline transition-colors" style="color:#5A6A7F">
-                    <span itemprop="name">Каталог</span>
-                </a>
-                <meta itemprop="position" content="2" />
             </li>
             
             @if(isset($breadcrumbs) && count($breadcrumbs) > 0)
@@ -36,7 +31,7 @@
                                 <span itemprop="name">{{ $bc['title'] }}</span>
                             </a>
                         @endif
-                        <meta itemprop="position" content="{{ $loop->iteration + 2 }}" />
+                        <meta itemprop="position" content="{{ $loop->iteration + 1 }}" />
                     </li>
                 @endforeach
             @endif
@@ -47,32 +42,33 @@
         {{-- Left: Current Item Info --}}
         <div class="lg:col-span-12 mb-8">
             <div class="bg-white rounded-3xl border p-8 shadow-sm" style="border-color:#E2E8F2">
-                <span class="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4"
-                      style="background:#EEF4FF; color:#1A5FBE">
+                <span class="inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-4 {{ $isNace ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800' }}">
                     {{ strtoupper($level) === 'SECTION' ? 'Секція' : (strtoupper($level) === 'DIVISION' ? 'Розділ' : (strtoupper($level) === 'GROUP' ? 'Група' : $level)) }}
                 </span>
                 
                 <div class="flex flex-col md:flex-row md:items-start justify-between gap-6">
                     <div class="max-w-4xl">
                         <h1 class="text-3xl md:text-4xl font-bold mb-6" style="color:#0F1923">
-                            <span class="font-mono text-blue-600">{{ $item->code }}</span> — {{ $item->title }}
+                            <span class="font-mono {{ $isNace ? 'text-emerald-600' : 'text-blue-600' }}">{{ $item->code }}</span> — {{ $item->title }}
                         </h1>
                         
                         @if($item->description)
                             <div class="mt-4 prose prose-slate prose-lg max-w-none">
-                                <p class="text-xl leading-relaxed text-slate-600 italic font-medium border-l-4 border-blue-500 pl-6 py-2 bg-slate-50 rounded-r-2xl">
-                                    {{ strip_tags($item->description) }}
-                                </p>
+                                <div class="text-xl leading-relaxed text-slate-600 italic font-medium border-l-4 {{ $isNace ? 'border-emerald-500' : 'border-blue-500' }} pl-6 py-2 bg-slate-50 rounded-r-2xl">
+                                    {!! $item->description !!}
+                                </div>
                             </div>
+                        @else
+                             <p class="text-slate-400 italic">Опис відсутній</p>
                         @endif
                     </div>
 
                     <div class="hidden md:block">
-                        <a href="{{ route('catalog') }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-all hover:bg-slate-50" style="border-color:#E2E8F2; color:#5A6A7F">
+                        <a href="{{ route('catalog.index', ['standard' => $standard]) }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold border transition-all hover:bg-slate-50" style="border-color:#E2E8F2; color:#5A6A7F">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                             </svg>
-                            Всього каталогу
+                            Весь каталог
                         </a>
                     </div>
                 </div>
@@ -96,35 +92,39 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 @forelse($children as $child)
                     @php
-                        $childParams = [];
+                        $childParams = ['standard' => $standard];
                         if ($child->level === 'DIVISION') {
-                            $childParams = ['division_code' => $child->code];
+                            $childParams['division_code'] = $child->code;
                         } elseif ($child->level === 'GROUP') {
-                            $childParams = ['division_code' => $item->code, 'group_code' => $child->slug];
+                            $childParams['division_code'] = $item->code;
+                            $childParams['group_code'] = $child->slug;
                         } elseif ($child->level === 'CLASS') {
-                            $childParams = ['division_code' => $item->parent->code, 'group_code' => $item->slug, 'class_code' => $child->slug];
+                            $isGroup = $item->level === 'GROUP';
+                            $childParams['division_code'] = $isGroup ? $item->parent->code : $item->code;
+                            $childParams['group_code'] = $isGroup ? $item->slug : $child->parent->slug;
+                            $childParams['class_code'] = $child->slug;
                         }
                     @endphp
                     <a href="{{ route('catalog.' . strtolower($child->level), $childParams) }}" 
-                       class="group block p-6 rounded-2xl border transition-all hover:shadow-lg hover:border-blue-300 hover:scale-[1.01]"
+                       class="group block p-6 rounded-2xl border transition-all hover:shadow-lg {{ $isNace ? 'hover:border-emerald-300' : 'hover:border-blue-300' }} hover:scale-[1.01]"
                        style="background:#FFFFFF; border-color:#E2E8F2">
                         <div class="flex items-start gap-5">
-                            <div class="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center font-mono font-bold text-xl transition-all group-hover:bg-blue-600 group-hover:text-white group-hover:rotate-3 shadow-sm"
-                                 style="background:#F0F7FF; color:#1A5FBE">
+                            <div class="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center font-mono font-bold text-xl transition-all {{ $isNace ? 'group-hover:bg-emerald-600' : 'group-hover:bg-blue-600' }} group-hover:text-white group-hover:rotate-3 shadow-sm"
+                                 style="{{ $isNace ? 'background:#F0FDF4; color:#059669' : 'background:#F0F7FF; color:#1A5FBE' }}">
                                 {{ $child->code }}
                             </div>
                             <div class="flex-1">
-                                <h3 class="text-lg font-bold mb-2 group-hover:text-blue-700 transition-colors leading-snug" style="color:#0F1923">
+                                <h3 class="text-lg font-bold mb-2 {{ $isNace ? 'group-hover:text-emerald-700' : 'group-hover:text-blue-700' }} transition-colors leading-snug" style="color:#0F1923">
                                     {{ $child->title }}
                                 </h3>
                                 @if($child->description)
-                                    <p class="text-sm line-clamp-2 text-slate-500 leading-relaxed">
+                                    <div class="text-sm line-clamp-2 text-slate-500 leading-relaxed">
                                         {{ Str::limit(strip_tags($child->description), 130) }}
-                                    </p>
+                                    </div>
                                 @endif
                             </div>
                             <div class="flex-shrink-0 self-center">
-                                <div class="w-8 h-8 rounded-full flex items-center justify-center transition-all group-hover:bg-blue-50 group-hover:translate-x-1" style="color:#94A3B8">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center transition-all group-hover:bg-slate-50 group-hover:translate-x-1" style="color:#94A3B8">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                                     </svg>

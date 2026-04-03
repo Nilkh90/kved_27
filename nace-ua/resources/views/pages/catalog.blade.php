@@ -1,30 +1,56 @@
 @extends('layouts.app')
 
 @php
-    $title = 'Каталог класифікатора ' . strtoupper($standard) . ' | kved2027';
-    $description = 'Повний каталог класифікаторів КВЕД-2010 та NACE 2.1-UA з можливістю пошуку та перегляду ієрархічного дерева видів діяльності.';
+    $isNace = $standard === 'nace';
+    $displayName = $isNace ? 'NACE 2.1-UA (2027)' : 'КВЕД-2010';
+    $title = 'Каталог класифікатора ' . $displayName . ' | kved2027';
+    $description = 'Повний каталог классифікатора ' . $displayName . '. Порівняння стандартів, пошук та ієрархія.';
 @endphp
 
 @section('content')
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     {{-- Page Header --}}
     <div class="mb-12">
-        <nav class="flex items-center gap-2 text-sm mb-3" style="color:#94A3B8">
-            <a href="{{ route('home') }}" class="hover:underline" style="color:#5A6A7F">Головна</a>
-            <span>/</span>
-            <span style="color:#0F1923; font-weight:500">Каталог</span>
-        </nav>
-        <h1 class="text-4xl font-extrabold tracking-tight" style="color:#0F1923">Каталог класифікаторів</h1>
-        <p class="mt-4 text-lg max-w-2xl" style="color:#5A6A7F">
-            Оберіть розділ для детального перегляду ієрархії та переходу між стандартами КВЕД-2010 та NACE 2.1-UA.
-        </p>
+        <div class="flex flex-wrap items-center gap-3 mb-6">
+            <nav class="flex items-center gap-2 text-sm" style="color:#94A3B8">
+                <a href="{{ route('home') }}" class="hover:underline" style="color:#5A6A7F">Головна</a>
+                <span>/</span>
+                <span style="color:#0F1923; font-weight:500">Каталог</span>
+            </nav>
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold {{ $isNace ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800' }}">
+                {{ $displayName }}
+            </span>
+        </div>
+
+        <h1 class="text-4xl font-extrabold tracking-tight" style="color:#0F1923">
+            Каталог <span class="{{ $isNace ? 'text-emerald-600' : 'text-blue-600' }}">{{ $displayName }}</span>
+        </h1>
+        
+        @if($isNace)
+            <div class="mt-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-100 flex gap-4 items-start">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 flex-shrink-0 flex items-center justify-center text-emerald-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                    <h4 class="font-bold text-emerald-900">Новий стандарт NACE 2.1-UA</h4>
+                    <p class="text-sm text-emerald-700 leading-relaxed">
+                        Ви переглядаєте перспективний класифікатор, який впроваджується з 2027 року. 
+                        Для поточної звітності використовуйте <a href="{{ route('catalog.index', ['standard' => 'kved']) }}" class="font-bold underline">КВЕД-2010</a>.
+                    </p>
+                </div>
+            </div>
+        @else
+            <p class="mt-4 text-lg max-w-2xl" style="color:#5A6A7F">
+                Офіційний діючий класифікатор видів економічної діяльності.
+            </p>
+        @endif
     </div>
 
     {{-- Sections Grid --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse($sections as $section)
-            <a href="{{ route('catalog.section', ['code' => strtolower($section->code)]) }}" 
-               class="group relative p-8 rounded-3xl border transition-all hover:shadow-xl hover:border-blue-300 overflow-hidden"
+            <a href="{{ route('catalog.section', ['standard' => $standard, 'code' => strtolower($section->code)]) }}" 
+               class="group relative p-8 rounded-3xl border transition-all hover:shadow-xl {{ $isNace ? 'hover:border-emerald-300' : 'hover:border-blue-300' }} overflow-hidden"
                style="background:#FFFFFF; border-color:#E2E8F2">
                 
                 {{-- Decorative background code --}}

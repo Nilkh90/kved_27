@@ -10,7 +10,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
-<body class="min-h-screen bg-[--color-bg] text-[--color-text] font-sans selection:bg-[--color-primary-light] selection:text-[--color-primary]">
+@php
+    $currentStandard = request()->route('standard') ?? 'kved';
+@endphp
+<body class="min-h-screen bg-[--color-bg] text-[--color-text] font-sans selection:bg-[--color-primary-light] selection:text-[--color-primary] {{ $currentStandard === 'nace' ? 'theme-nace' : '' }}">
 
     <!-- Header / Navigation -->
     <header class="glass sticky top-0 z-50">
@@ -19,18 +22,30 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('home') }}" class="flex items-center gap-2 group">
-                        <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold transition-colors" style="background-color:#1A5FBE">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold transition-colors" style="background-color: var(--color-primary)">
                             K
                         </div>
                         <span class="text-xl font-bold tracking-tight text-slate-900">
-                            kved<span style="color:#1A5FBE">2027</span>
+                            kved<span style="color: var(--color-primary)">2027</span>
                         </span>
+                    </a>
+                </div>
+
+                <!-- Central Switcher (New) -->
+                <div class="hidden sm:flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+                    <a href="{{ route('catalog.index', ['standard' => 'kved']) }}" 
+                       class="px-4 py-1.5 text-xs font-bold rounded-lg transition-all {{ $currentStandard === 'kved' ? 'bg-white shadow-sm text-blue-700' : 'text-slate-500 hover:text-slate-700' }}">
+                        КВЕД 2010
+                    </a>
+                    <a href="{{ route('catalog.index', ['standard' => 'nace']) }}" 
+                       class="px-4 py-1.5 text-xs font-bold rounded-lg transition-all {{ $currentStandard === 'nace' ? 'bg-white shadow-sm text-emerald-600' : 'text-slate-500 hover:text-slate-700' }}">
+                        NACE 2027
                     </a>
                 </div>
 
                 <!-- Desktop Navigation -->
                 <nav class="hidden md:flex items-center gap-8">
-                    <a href="{{ route('catalog') }}" class="text-sm font-medium transition-colors {{ request()->routeIs('catalog*') ? 'text-blue-700' : 'text-slate-700 hover:text-blue-700' }}">
+                    <a href="{{ route('catalog') }}" class="text-sm font-medium transition-colors {{ request()->routeIs('catalog*') ? 'text-[--color-primary] font-bold' : 'text-slate-700 hover:text-blue-700' }}">
                         Каталог
                     </a>
                     <a href="{{ route('info') }}" class="text-sm font-medium transition-colors {{ request()->routeIs('info*') ? 'text-blue-700' : 'text-slate-700 hover:text-blue-700' }}">
