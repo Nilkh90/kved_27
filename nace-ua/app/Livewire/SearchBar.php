@@ -8,7 +8,6 @@ use Livewire\Component;
 
 class SearchBar extends Component
 {
-    #[Url]
     public string $query = '';
 
     public array $results = [];

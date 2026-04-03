@@ -10,7 +10,7 @@
 
         <input
             type="search"
-            wire:model.live.debounce.300ms="query"
+            wire:model.live="query"
             @focus="open = true"
             placeholder="Введіть код або опис діяльності..."
             autocomplete="off"
