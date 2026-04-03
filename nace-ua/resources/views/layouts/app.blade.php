@@ -51,7 +51,7 @@
                     <a href="{{ route('info') }}" class="text-sm font-medium transition-colors {{ request()->routeIs('info*') ? 'text-blue-700' : 'text-slate-700 hover:text-blue-700' }}">
                         Методологія
                     </a>
-                    <a href="{{ route('home') }}" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-semibold rounded-xl text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]" style="background-color: var(--color-primary)">
+                    <a href="{{ route('home') }}" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-semibold rounded-xl text-white shadow-lg {{ $currentStandard === 'nace' ? 'bg-emerald-600 shadow-emerald-500/20' : 'bg-blue-600 shadow-blue-500/20' }} transition-all hover:scale-[1.02] active:scale-[0.98]">
                         Описати бізнес
                     </a>
                 </nav>
