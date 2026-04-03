@@ -51,7 +51,7 @@
                     <a href="{{ route('info') }}" class="text-sm font-medium transition-colors {{ request()->routeIs('info*') ? 'text-blue-700' : 'text-slate-700 hover:text-blue-700' }}">
                         Методологія
                     </a>
-                    <a href="#" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-semibold rounded-xl text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]" style="background-color:#1A5FBE">
+                    <a href="{{ route('home') }}" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-semibold rounded-xl text-white shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]" style="background-color: var(--color-primary)">
                         Описати бізнес
                     </a>
                 </nav>
@@ -72,7 +72,7 @@
                         <a href="{{ route('catalog') }}" class="block px-4 py-2 text-sm hover:bg-[--color-surface]">Каталог</a>
                         <a href="{{ route('info') }}" class="block px-4 py-2 text-sm hover:bg-[--color-surface]">Методологія</a>
                         <div class="border-t border-[--color-border] my-1"></div>
-                        <a href="#" class="block px-4 py-2 text-sm text-[--color-primary] font-bold">Описати бізнес</a>
+                        <a href="{{ route('home') }}" class="block px-4 py-2 text-sm text-[--color-primary] font-bold">Описати бізнес</a>
                     </div>
                 </div>
             </div>

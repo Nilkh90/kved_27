@@ -67,8 +67,18 @@ class ImportNace2027 extends Command
 
             // Detect new hierarchy node
             $newNode = null;
-            if (preg_match('/^Розділ\s+([A-U])\s*[—–-]\s*(.*)$/ui', $trimmed, $matches)) {
-                $newNode = ['code' => $matches[1], 'title' => trim($matches[2]), 'level' => 'SECTION'];
+            if (preg_match('/^Розділ\s+([А-ЯA-ZІЇЄ])\s*[—–-]\s*(.*)$/ui', $trimmed, $matches)) {
+                $cyrCode = mb_strtoupper($matches[1]);
+                // Map Cyrillic to Latin A-U (NACE Rev. 2.1 sections are A-U)
+                $map = [
+                    'А' => 'A', 'Б' => 'B', 'В' => 'C', 'Г' => 'D', 'Д' => 'E',
+                    'Е' => 'F', 'Є' => 'G', 'Ж' => 'H', 'З' => 'I', 'И' => 'J',
+                    'І' => 'K', 'Ї' => 'L', 'Й' => 'M', 'К' => 'N', 'Л' => 'O',
+                    'М' => 'P', 'Н' => 'Q', 'О' => 'R', 'П' => 'S', 'Р' => 'T',
+                    'С' => 'U'
+                ];
+                $latCode = $map[$cyrCode] ?? $cyrCode;
+                $newNode = ['code' => $latCode, 'title' => trim($matches[2]), 'level' => 'SECTION'];
             } elseif (preg_match('/^(\d{2}\.\d{2})(?:\s+(.*))?$/u', $trimmed, $matches)) {
                 $newNode = ['code' => $matches[1], 'title' => trim($matches[2] ?? ''), 'level' => 'CLASS'];
             } elseif (preg_match('/^(\d{2}\.\d)(?:\s+(.*))?$/u', $trimmed, $matches)) {
