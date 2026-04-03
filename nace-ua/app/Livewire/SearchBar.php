@@ -15,10 +15,10 @@ class SearchBar extends Component
 
     public function mount(): void
     {
-        $this->results = app(SearchService::class)->suggest('62', limit: 3);
+        $this->results = [];
     }
 
-    public function updateResults(string $value): void
+    public function updatedQuery(string $value): void
     {
         if (trim($value) === '') {
             $this->results = [];

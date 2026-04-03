@@ -58,6 +58,10 @@ class ImportNace2027 extends Command
         $currentBlock = 'description';
 
         while (($line = fgets($handle)) !== false) {
+            // Remove UTF-8 BOM if present at the start of the file
+            if ($this->recordsCount === 0) {
+                $line = str_replace("\xEF\xBB\xBF", "", $line);
+            }
             $line = trim($line, "\r\n");
             $trimmed = trim($line);
 
@@ -65,20 +69,27 @@ class ImportNace2027 extends Command
                 continue;
             }
 
+            // Skip bullet lines immediately before node detection
+            if ($this->isBullet($trimmed)) {
+                if ($currentRecord) {
+                    $this->addLineToBlock($currentRecord, $currentBlock, $trimmed);
+                }
+                continue;
+            }
+
             // Detect new hierarchy node
             $newNode = null;
-            if (preg_match('/^Розділ\s+([А-ЯA-ZІЇЄ])\s*[—–-]\s*(.*)$/ui', $trimmed, $matches)) {
-                $cyrCode = mb_strtoupper($matches[1]);
-                // Map Cyrillic to Latin A-U (NACE Rev. 2.1 sections are A-U)
+            if (preg_match('/^(?:Розділ|Секція)\s+([А-ЯA-ZІЇЄ])(?:\s*[—–-]\s*(.*))?$/ui', $trimmed, $matches)) {
+                $char = mb_strtoupper($matches[1]);
                 $map = [
-                    'А' => 'A', 'Б' => 'B', 'В' => 'C', 'Г' => 'D', 'Д' => 'E',
-                    'Е' => 'F', 'Є' => 'G', 'Ж' => 'H', 'З' => 'I', 'И' => 'J',
-                    'І' => 'K', 'Ї' => 'L', 'Й' => 'M', 'К' => 'N', 'Л' => 'O',
-                    'М' => 'P', 'Н' => 'Q', 'О' => 'R', 'П' => 'S', 'Р' => 'T',
-                    'С' => 'U'
+                    'А' => 'A', 'Б' => 'B', 'В' => 'C', 'С' => 'C',
+                    'Г' => 'D', 'Д' => 'E', 'Е' => 'F', 'Є' => 'G', 'Ж' => 'H', 
+                    'З' => 'I', 'И' => 'J', 'І' => 'K', 'Ї' => 'L', 'Й' => 'M', 
+                    'К' => 'N', 'Л' => 'O', 'М' => 'P', 'Н' => 'Q', 'О' => 'R', 
+                    'П' => 'S', 'Р' => 'T', 'У' => 'U', 'Т' => 'V', 'Ф' => 'V', 'V' => 'V' 
                 ];
-                $latCode = $map[$cyrCode] ?? $cyrCode;
-                $newNode = ['code' => $latCode, 'title' => trim($matches[2]), 'level' => 'SECTION'];
+                $latCode = $map[$char] ?? $char;
+                $newNode = ['code' => $latCode, 'title' => trim($matches[2] ?? ''), 'level' => 'SECTION'];
             } elseif (preg_match('/^(\d{2}\.\d{2})(?:\s+(.*))?$/u', $trimmed, $matches)) {
                 $newNode = ['code' => $matches[1], 'title' => trim($matches[2] ?? ''), 'level' => 'CLASS'];
             } elseif (preg_match('/^(\d{2}\.\d)(?:\s+(.*))?$/u', $trimmed, $matches)) {
@@ -105,6 +116,9 @@ class ImportNace2027 extends Command
                 // Save previous record
                 if ($currentRecord) {
                     $this->saveRecord($currentRecord);
+                    if ($this->recordsCount % 100 === 0) {
+                        $this->info("Imported {$this->recordsCount} records...");
+                    }
                 }
 
                 // Start new record
@@ -198,6 +212,7 @@ class ImportNace2027 extends Command
 
     private function saveRecord(array $data)
     {
+        $this->info("DEBUG: Saving record with code: [{$data['code']}] level: [{$data['level']}] description length: " . strlen($data['description']));
         $parentId = null;
         if ($data['level'] === 'DIVISION') {
             $parentId = $this->currentSectionId;
@@ -247,8 +262,9 @@ class ImportNace2027 extends Command
 
     private function isBullet(string $line): bool
     {
-        // Matches –, •, ◦, - at start
-        return preg_match('/^[\x{2013}\x{2022}\x{25E6}-]/u', $line);
+        // Use literal multibyte characters for better cross-platform compatibility
+        // Includes –, •, ◦, -
+        return preg_match('/^[–•◦-]/u', $line);
     }
 
     private function cleanBullet(string $line): string

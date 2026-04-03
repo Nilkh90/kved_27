@@ -1,3 +1,5 @@
+@extends('layouts.app')
+
 @php
     $isNace = $standard === 'nace';
     $displayName = $isNace ? 'NACE 2.1-UA (2027)' : 'КВЕД-2010';
