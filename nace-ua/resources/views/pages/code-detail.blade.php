@@ -3,7 +3,7 @@
 @php
     $isNace = $standard === 'nace';
     $displayName = $isNace ? 'NACE 2.1-UA (2027)' : 'КВЕД-2010';
-    $title = $code->code . ' — ' . $code->title . ' | ' . $displayName . ' | kved2027';
+    $title = $code->code . ' — ' . $code->title . ' | ' . $displayName . ' | kved.biz.ua';
     $description = \Illuminate\Support\Str::limit($code->description ? strip_tags($code->description) : 'Перегляньте деталі коду ' . $code->code . ' у класифікаторі ' . $displayName, 155);
 @endphp
 
@@ -66,7 +66,7 @@
                 {{-- Description --}}
                 @if (!empty($code->description))
                     <div class="mt-4 prose prose-slate prose-lg max-w-none">
-                        <div class="text-lg leading-relaxed text-slate-600 italic font-medium border-l-4 {{ $isNace ? 'border-emerald-500' : 'border-blue-500' }} pl-6 py-2 bg-slate-50 rounded-r-2xl">
+                        <div class="text-lg leading-relaxed text-slate-600 italic font-medium border-l-4 {{ $isNace ? 'border-emerald-500' : 'border-blue-500' }} pl-6 py-2 bg-slate-50 rounded-r-2xl rich-text">
                             {!! $code->description !!}
                         </div>
                     </div>

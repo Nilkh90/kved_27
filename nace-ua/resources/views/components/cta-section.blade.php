@@ -15,7 +15,7 @@
                 </a>
                 <a href="{{ route('info') }}"
                    class="inline-flex items-center justify-center px-8 py-3.5 rounded-xl text-sm font-bold text-white border border-white/20 backdrop-blur-sm transition-all hover:bg-white/10">
-                    Читати методологію
+                    Читати FAQ
                 </a>
             </div>
         </div>

@@ -64,4 +64,9 @@
         --color-primary-dark: #059669; /* Emerald 600 */
         --color-primary-light: #ECFDF5; /* Emerald 50 */
     }
+
+    /* Underline links in text blocks for better UX */
+    .rich-text a {
+        @apply underline decoration-[--color-primary]/30 underline-offset-4 transition-all hover:decoration-[--color-primary] hover:text-[--color-primary];
+    }
 }

@@ -54,13 +54,19 @@
                         
                         @if($item->description)
                             <div class="mt-4 prose prose-slate prose-lg max-w-none">
-                                <div class="text-xl leading-relaxed text-slate-600 italic font-medium border-l-4 {{ $isNace ? 'border-emerald-500' : 'border-blue-500' }} pl-6 py-2 bg-slate-50 rounded-r-2xl">
+                                <div class="text-xl leading-relaxed text-slate-600 italic font-medium border-l-4 {{ $isNace ? 'border-emerald-500' : 'border-blue-500' }} pl-6 py-2 bg-slate-50 rounded-r-2xl rich-text">
                                     {!! $item->description !!}
                                 </div>
                             </div>
-                        @else
-                             <p class="text-slate-400 italic">Опис відсутній</p>
                         @endif
+
+                        {{-- Inclusions/Exclusions for Sections/Divisions/Groups --}}
+                        <x-includes-excludes
+                            class="mt-8"
+                            :includes="$item->includes ?? []"
+                            :includes-also="$item->includes_also ?? []"
+                            :excludes="$item->excludes ?? []"
+                        />
                     </div>
 
                     <div class="hidden md:block">

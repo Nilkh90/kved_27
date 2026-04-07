@@ -3,7 +3,7 @@
 @php
     $isNace = $standard === 'nace';
     $displayName = $isNace ? 'NACE 2.1-UA (2027)' : 'КВЕД-2010';
-    $title = 'Каталог класифікатора ' . $displayName . ' | kved2027';
+    $title = 'Каталог класифікатора ' . $displayName . ' | kved.biz.ua';
     $description = 'Повний каталог классифікатора ' . $displayName . '. Порівняння стандартів, пошук та ієрархія.';
 @endphp
 

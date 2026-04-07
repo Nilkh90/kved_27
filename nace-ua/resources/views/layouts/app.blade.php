@@ -7,6 +7,7 @@
 
     <x-seo :title="$title ?? null" :description="$description ?? null" />
 
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 </head>
@@ -26,7 +27,7 @@
                             K
                         </div>
                         <span class="text-xl font-bold tracking-tight text-slate-900">
-                            kved<span style="color: var(--color-primary)">2027</span>
+                            kved<span style="color: var(--color-primary)">.biz.ua</span>
                         </span>
                     </a>
                 </div>
@@ -49,10 +50,7 @@
                         Каталог
                     </a>
                     <a href="{{ route('info') }}" class="text-sm font-medium transition-colors {{ request()->routeIs('info*') ? 'text-blue-700' : 'text-slate-700 hover:text-blue-700' }}">
-                        Методологія
-                    </a>
-                    <a href="{{ route('home') }}" class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-semibold rounded-xl text-white shadow-lg {{ $currentStandard === 'nace' ? 'bg-emerald-600 shadow-emerald-500/20' : 'bg-blue-600 shadow-blue-500/20' }} transition-all hover:scale-[1.02] active:scale-[0.98]">
-                        Описати бізнес
+                        FAQ
                     </a>
                 </nav>
 
@@ -70,9 +68,8 @@
                          x-transition:enter-end="opacity-100 scale-100"
                          class="absolute top-16 right-4 w-48 py-2 bg-white rounded-2xl shadow-xl border border-[--color-border] z-50">
                         <a href="{{ route('catalog') }}" class="block px-4 py-2 text-sm hover:bg-[--color-surface]">Каталог</a>
-                        <a href="{{ route('info') }}" class="block px-4 py-2 text-sm hover:bg-[--color-surface]">Методологія</a>
+                        <a href="{{ route('info') }}" class="block px-4 py-2 text-sm hover:bg-[--color-surface]">FAQ</a>
                         <div class="border-t border-[--color-border] my-1"></div>
-                        <a href="{{ route('home') }}" class="block px-4 py-2 text-sm text-[--color-primary] font-bold">Описати бізнес</a>
                     </div>
                 </div>
             </div>
@@ -93,37 +90,25 @@
                         <div class="w-8 h-8 bg-[--color-primary] rounded-lg flex items-center justify-center text-white font-bold">
                             K
                         </div>
-                        <span class="text-xl font-bold tracking-tight">kved<span class="text-[--color-primary]">2027</span></span>
+                        <span class="text-xl font-bold tracking-tight">kved<span class="text-[--color-primary]">.biz.ua</span></span>
                     </div>
                     <p class="text-[--color-text-muted] max-w-sm mb-6">
                         Професійний сервіс переходу з класифікатора КВЕД-2010 на NACE 2.1-UA. 
                         Зрозуміло, швидко та безкоштовно для українського бізнесу.
                     </p>
-                    <a href="https://ukrstat.gov.ua/metod_pob/naryadi/2023/n191.pdf" target="_blank" class="text-sm font-medium text-[--color-primary] hover:underline flex items-center gap-2">
-                        <span>Наказ Держстату № 191</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                    </a>
                 </div>
-                <div>
+                <div class="md:col-start-4 md:text-right">
                     <h4 class="font-bold text-sm uppercase tracking-wider mb-6 text-[--color-text-hint]">Навігація</h4>
                     <ul class="space-y-4 text-sm">
                         <li><a href="{{ route('home') }}" class="text-[--color-text-muted] hover:text-[--color-primary]">Головна</a></li>
                         <li><a href="{{ route('catalog') }}" class="text-[--color-text-muted] hover:text-[--color-primary]">Каталог</a></li>
-                        <li><a href="{{ route('info') }}" class="text-[--color-text-muted] hover:text-[--color-primary]">Методологія</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-sm uppercase tracking-wider mb-6 text-[--color-text-hint]">Допомога</h4>
-                    <ul class="space-y-4 text-sm">
                         <li><a href="{{ route('info') }}" class="text-[--color-text-muted] hover:text-[--color-primary]">FAQ</a></li>
-                        <li><a href="#" class="text-[--color-text-muted] hover:text-[--color-primary]">Зворотний зв'язок</a></li>
-                        <li><a href="#" class="text-[--color-text-muted] hover:text-[--color-primary]">Політика конфіденційності</a></li>
                     </ul>
                 </div>
             </div>
             <div class="border-t border-[--color-border] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                 <p class="text-sm text-[--color-text-hint]">
-                    &copy; {{ date('Y') }} kved2027.ua. Всі права захищені.
+                    &copy; {{ date('Y') }} kved.biz.ua. Всі права захищені.
                 </p>
                 <div class="flex gap-6">
                     <!-- Placeholder icons or social links -->

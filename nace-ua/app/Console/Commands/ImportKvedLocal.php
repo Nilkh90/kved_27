@@ -116,13 +116,26 @@ class ImportKvedLocal extends Command
                 $level = $this->determineLevel($code);
                 $parentId = $this->findParentId($code, $level, $html);
 
+                $description = $this->processHtml($data['description'] ?? '');
+                
+                // For non-classes, merge text-based inclusions into description for primary display
+                if ($level !== 'CLASS') {
+                    $extraParts = [];
+                    if (!empty($data['includes'])) { $extraParts[] = "<strong>Включає:</strong><br>" . implode('<br>', $data['includes']); }
+                    if (!empty($data['includes_also'])) { $extraParts[] = "<strong>Також включає:</strong><br>" . implode('<br>', $data['includes_also']); }
+                    
+                    if (!empty($extraParts)) {
+                        $description = $description ? $description . '<br><br>' . implode('<br><br>', $extraParts) : implode('<br><br>', $extraParts);
+                    }
+                }
+
                 Kved2010::updateOrCreate(
                     ['code' => $code],
                     [
                         'title' => $data['title'],
                         'level' => $level,
                         'parent_id' => $parentId,
-                        'description' => $this->processHtml($data['description'] ?? ''),
+                        'description' => $description,
                         'includes' => $data['includes'] ?? [],
                         'includes_also' => $data['includes_also'] ?? [],
                         'excludes' => $data['excludes'] ?? [],
@@ -216,29 +229,48 @@ class ImportKvedLocal extends Command
             $data['title'] = trim(strip_tags($m[1]));
         }
 
-        // 2. Main Description (usually for Sections/Divisions)
-        // Extract content after Na paragraph and before any Zp lists
-        if (preg_match('/<p class="Na">.*?<\/p>(.*?)<em class="Zp/si', $html, $m)) {
-            $desc = trim($m[1]);
-            $data['description'] = $this->cleanText($desc);
-        } elseif (preg_match('/<p class="Na">.*?<\/p>(.*?)<table/si', $html, $m)) {
-             $desc = trim($m[1]);
-             $data['description'] = $this->cleanText($desc);
-        }
-
-        // 3. Includes (Zp1)
-        if (preg_match('/<em class="Zp1">.*?<\/em>\s*<ul>(.*?)<\/ul>/si', $html, $m)) {
-            $data['includes'] = $this->parseList($m[1]);
-        }
-
-        // 4. Includes also (Zp2)
-        if (preg_match('/<em class="Zp2">.*?<\/em>\s*<ul>(.*?)<\/ul>/si', $html, $m)) {
-            $data['includes_also'] = $this->parseList($m[1]);
-        }
-
-        // 5. Excludes (Zp3)
-        if (preg_match('/<em class="Zp3">.*?<\/em>\s*<ul>(.*?)<\/ul>/si', $html, $m)) {
-            $data['excludes'] = $this->parseList($m[1]);
+        // 2. Extract entire main cell content for deep parsing
+        // We know the structure has <p class="Na">Title</p> Description... Inclusions...
+        if (preg_match('/<!-- ПЗП -->(.*?)<!-- КЗП -->/si', $html, $m)) {
+            $content = $m[1];
+            
+            // Remove title from content to avoid duplication
+            $content = preg_replace('/<p class="Na">.*?<\/p>/si', '', $content);
+            
+            // Split by Zp tags to separate description, includes, includes_also, excludes
+            // Zp1 = Включає, Zp2 = Також включає, Zp3 = Не включає
+            $parts = preg_split('/(<em class="Zp[123]">.*?<\/em>)/si', $content, -1, PREG_SPLIT_DELIM_CAPTURE);
+            
+            $currentSection = 'description';
+            foreach ($parts as $part) {
+                $trimmed = trim($part);
+                if (empty($trimmed)) continue;
+                
+                if (preg_match('/<em class="Zp1">/i', $trimmed)) { $currentSection = 'includes'; continue; }
+                if (preg_match('/<em class="Zp2">/i', $trimmed)) { $currentSection = 'includes_also'; continue; }
+                if (preg_match('/<em class="Zp3">/i', $trimmed)) { $currentSection = 'excludes'; continue; }
+                
+                if ($currentSection === 'description') {
+                    $data['description'] .= $part;
+                } else {
+                    // Check if there is a <ul> in this part
+                    if (preg_match('/<ul>(.*?)<\/ul>/si', $part, $ulMatch)) {
+                        $data[$currentSection] = array_merge($data[$currentSection], $this->parseList($ulMatch[1]));
+                    } else {
+                        // Plain text based inclusion/exclusion
+                        // Split by <br> or paragraphs
+                        $subItems = preg_split('/<br\s*\/?>|<\/p>|<p>/i', $part);
+                        foreach ($subItems as $si) {
+                            $si = trim(strip_tags($si, '<a>'));
+                            if (!empty($si)) {
+                                $data[$currentSection][] = $this->processHtml($si);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            $data['description'] = $this->processHtml($data['description']);
         }
 
         return $data;
