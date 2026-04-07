@@ -124,10 +124,18 @@
                                     {{ $child->title }}
                                 </h3>
                                 @if($child->description)
-                                    <div class="text-sm line-clamp-2 text-slate-500 leading-relaxed">
+                                    <div class="text-sm line-clamp-2 text-slate-500 leading-relaxed mb-3">
                                         {{ Str::limit(strip_tags($child->description), 130) }}
                                     </div>
                                 @endif
+                                <div class="mt-3">
+                                    <button type="button" @click.prevent="add('{{ $child->code }}', '{{ addslashes(str_replace(PHP_EOL, '', ltrim($child->title))) }}')"
+                                            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-slate-200 text-slate-600 hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-colors shadow-sm"
+                                            :class="items && items.find(i => i.code === '{{ $child->code }}') ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : ''">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                                        Додати до списку
+                                    </button>
+                                </div>
                             </div>
                             <div class="flex-shrink-0 self-center">
                                 <div class="w-8 h-8 rounded-full flex items-center justify-center transition-all group-hover:bg-slate-50 group-hover:translate-x-1" style="color:#94A3B8">
