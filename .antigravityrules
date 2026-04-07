@@ -1,5 +1,11 @@
 # Antigravity Rules for kved_27
 
+## Infrastructure & Access
+- **Production Server**: `204.168.131.195` (User: `root`)
+- **SSH Access**: С компьютера настроен автоматический вход по SSH-ключу. Переход к серверу выполняется через `ssh root@204.168.131.195`.
+- **Server Project Path**: `/var/www/kved_27/nace-ua/`
+- **Commands**: Все команды на сервере следует выполнять через `ssh root@204.168.131.195 "cd /var/www/kved_27/nace-ua && ..."`
+
 ## Project Overview
 
 This project is dedicated to scraping, processing, and displaying KVED-2010 (Ukrainian Classification of Economic Activities) data.

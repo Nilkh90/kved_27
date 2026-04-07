@@ -54,6 +54,19 @@ npm run dev
 php artisan queue:work
 ```
 
+## Infrastructure & Access
+
+The project is deployed on a production server:
+- **IP Address**: `204.168.131.195`
+- **SSH User**: `root`
+- **Authentication**: SSH Key (pre-configured on the local machine)
+- **Deployment Path**: `/var/www/kved_27/nace-ua/`
+
+To connect to the server, use:
+```bash
+ssh root@204.168.131.195
+```
+
 ## Структура проекту
 Основна логіка зосереджена в директорії `nace-ua/`:
 - `app/Http/Controllers` — контролери публічних сторінок та API.
