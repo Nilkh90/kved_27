@@ -112,6 +112,39 @@ class CatalogController extends Controller
         ]);
     }
 
+    /**
+     * Универсальный поиск по коду (с редиректом на правильный URL)
+     */
+    public function showByCode(string $standard, string $code): View|\Illuminate\Http\RedirectResponse
+    {
+        $model = $this->getModel($standard);
+        $codeRaw = strtoupper(str_replace('-', '.', $code));
+        
+        $item = $model::where('code', $codeRaw)->firstOrFail();
+        
+        $params = ['standard' => $standard];
+        $lvl = strtolower($item->level);
+        
+        if ($lvl === 'section') {
+            $params['code'] = strtolower($item->code);
+            return redirect()->route('catalog.section', $params);
+        } elseif ($lvl === 'division') {
+            $params['division_code'] = $item->code;
+            return redirect()->route('catalog.division', $params);
+        } elseif ($lvl === 'group') {
+            $params['division_code'] = $item->parent->code;
+            $params['group_code'] = str_replace('.', '-', $item->code);
+            return redirect()->route('catalog.group', $params);
+        } elseif ($lvl === 'class') {
+            $params['division_code'] = $item->parent->parent->code;
+            $params['group_code'] = str_replace('.', '-', $item->parent->code);
+            $params['class_code'] = str_replace('.', '-', $item->code);
+            return redirect()->route('catalog.class', $params);
+        }
+
+        abort(404);
+    }
+
     private function getBreadcrumbs($item, string $standard): array
     {
         $breadcrumbs = [];

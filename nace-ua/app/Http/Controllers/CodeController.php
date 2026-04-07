@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\View;
 
 class CodeController extends Controller
 {
-    public function show(string $standard, string $code): View
+    public function show(string $standard, string $code): View|\Illuminate\Http\RedirectResponse
     {
         $standard = strtolower($standard);
 
@@ -25,6 +25,14 @@ class CodeController extends Controller
             ->first();
 
         if (! $codeModel) {
+            // Если не нашли в указанном стандарте, пробуем в другом
+            $otherStandard = $standard === 'nace' ? 'kved' : 'nace';
+            $otherModel = $standard === 'nace' ? Kved2010::class : Nace2027::class;
+            $fallback = $otherModel::query()->where('code', $code)->first();
+            
+            if ($fallback) {
+                return redirect()->route('code.show', ['standard' => $otherStandard, 'code' => $code]);
+            }
             abort(404);
         }
 

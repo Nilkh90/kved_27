@@ -42,12 +42,43 @@ class ImportNace2027 extends Command
 
         if ($this->option('fresh')) {
             $this->warn('Truncating nace_2027 table...');
-            Nace2027::truncate();
+            Nace2027::query()->delete(); // Safer for pgsql permissions
             $this->info('Truncated.');
         }
 
-        $this->info('Starting NACE 2027 import from translated_ready_final.txt...');
+        // STEP 1: Process master list to ensure all codes exist
+        $masterPath = base_path('../sources/2027.txt');
+        if (file_exists($masterPath)) {
+            $this->info('Step 1: Importing master list from 2027.txt...');
+            $lines = file($masterPath, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+            $currentCode = null;
+            foreach ($lines as $line) {
+                $trimmed = trim($line);
+                if (preg_match('/^([A-Z]|\d{2}|\d{2}\.\d|\d{2}\.\d{2})$/', $trimmed)) {
+                    $currentCode = $trimmed;
+                } elseif ($currentCode) {
+                    $level = 'SECTION';
+                    if (preg_match('/^\d{2}\.\d{2}$/', $currentCode)) $level = 'CLASS';
+                    elseif (preg_match('/^\d{2}\.\d$/', $currentCode)) $level = 'GROUP';
+                    elseif (preg_match('/^\d{2}$/', $currentCode)) $level = 'DIVISION';
+                    
+                    $this->saveRecord([
+                        'code' => $currentCode,
+                        'title' => $trimmed,
+                        'level' => $level,
+                        'description' => '',
+                        'includes' => [],
+                        'excludes' => [],
+                        'includes_also' => [],
+                    ]);
+                    $currentCode = null;
+                }
+            }
+            $this->info("Master list processed. Total records so far: {$this->recordsCount}");
+        }
 
+        // STEP 2: Process detailed descriptions
+        $this->info('Step 2: Importing detailed descriptions from translated_ready_final.txt...');
         $handle = fopen($filePath, "r");
         if (!$handle) {
             $this->error("Could not open file.");
@@ -56,6 +87,10 @@ class ImportNace2027 extends Command
 
         $currentRecord = null;
         $currentBlock = 'description';
+        // Reset hierarchy trackers for second pass
+        $this->currentSectionId = null;
+        $this->currentDivisionId = null;
+        $this->currentGroupId = null;
 
         while (($line = fgets($handle)) !== false) {
             // Remove UTF-8 BOM if present at the start of the file
