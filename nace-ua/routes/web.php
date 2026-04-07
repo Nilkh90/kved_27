@@ -20,9 +20,7 @@ Route::get('/{any}', function($any) {
 // Публичные страницы
 Route::get('/', [HomeController::class, 'index'])->name('home');
 // Каталог
-Route::get('/catalog', function () {
-    return redirect()->route('catalog.index', ['standard' => 'kved']);
-})->name('catalog');
+Route::get('/catalog', [CatalogController::class, 'indexDefault'])->name('catalog');
 
 Route::prefix('catalog/{standard}')->where(['standard' => 'kved|nace'])->group(function () {
     Route::get('/', [CatalogController::class, 'index'])->name('catalog.index');

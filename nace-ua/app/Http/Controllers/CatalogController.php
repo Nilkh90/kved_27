@@ -25,6 +25,11 @@ class CatalogController extends Controller
         ]);
     }
 
+    public function indexDefault(): View
+    {
+        return $this->index('kved');
+    }
+
     public function section(string $standard, string $code): View
     {
         $model = $this->getModel($standard);
@@ -115,31 +120,51 @@ class CatalogController extends Controller
     /**
      * Универсальный поиск по коду (с редиректом на правильный URL)
      */
-    public function showByCode(string $standard, string $code): View|\Illuminate\Http\RedirectResponse
+    public function showByCode(string $standard, string $code): View
     {
         $model = $this->getModel($standard);
         $codeRaw = strtoupper(str_replace('-', '.', $code));
         
         $item = $model::where('code', $codeRaw)->firstOrFail();
         
-        $params = ['standard' => $standard];
         $lvl = strtolower($item->level);
         
         if ($lvl === 'section') {
-            $params['code'] = strtolower($item->code);
-            return redirect()->route('catalog.section', $params);
+            $divisions = $item->children()->orderBy('code')->get();
+            return view('pages.catalog.item', [
+                'standard' => $standard,
+                'item' => $item,
+                'children' => $divisions,
+                'level' => 'section',
+                'childLevel' => 'division',
+                'breadcrumbs' => $this->getBreadcrumbs($item, $standard)
+            ]);
         } elseif ($lvl === 'division') {
-            $params['division_code'] = $item->code;
-            return redirect()->route('catalog.division', $params);
+            $groups = $item->children()->orderBy('code')->get();
+            return view('pages.catalog.item', [
+                'standard' => $standard,
+                'item' => $item,
+                'children' => $groups,
+                'level' => 'division',
+                'childLevel' => 'group',
+                'breadcrumbs' => $this->getBreadcrumbs($item, $standard)
+            ]);
         } elseif ($lvl === 'group') {
-            $params['division_code'] = $item->parent->code;
-            $params['group_code'] = str_replace('.', '-', $item->code);
-            return redirect()->route('catalog.group', $params);
+            $classes = $item->children()->orderBy('code')->get();
+            return view('pages.catalog.item', [
+                'standard' => $standard,
+                'item' => $item,
+                'children' => $classes,
+                'level' => 'group',
+                'childLevel' => 'class',
+                'breadcrumbs' => $this->getBreadcrumbs($item, $standard)
+            ]);
         } elseif ($lvl === 'class') {
-            $params['division_code'] = $item->parent->parent->code;
-            $params['group_code'] = str_replace('.', '-', $item->parent->code);
-            $params['class_code'] = str_replace('.', '-', $item->code);
-            return redirect()->route('catalog.class', $params);
+            return view('pages.code-detail', [
+                'standard' => $standard,
+                'code' => $item,
+                'breadcrumbs' => $this->getBreadcrumbs($item, $standard)
+            ]);
         }
 
         abort(404);
